@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "B:\\github\\PogTeam\\Client\\Client\\Client\\Client.csproj": {}
+    "D:\\PogTeam\\Client\\Client\\Client\\Client.csproj": {}
   },
   "projects": {
-    "B:\\github\\PogTeam\\Client\\Client\\Client\\Client.csproj": {
+    "D:\\PogTeam\\Client\\Client\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "B:\\github\\PogTeam\\Client\\Client\\Client\\Client.csproj",
+        "projectUniqueName": "D:\\PogTeam\\Client\\Client\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "B:\\github\\PogTeam\\Client\\Client\\Client\\Client.csproj",
-        "packagesPath": "C:\\Users\\tatat\\.nuget\\packages\\",
-        "outputPath": "B:\\github\\PogTeam\\Client\\Client\\Client\\obj\\",
+        "projectPath": "D:\\PogTeam\\Client\\Client\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\bgm99\\.nuget\\packages\\",
+        "outputPath": "D:\\PogTeam\\Client\\Client\\Client\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\tatat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\bgm99\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
