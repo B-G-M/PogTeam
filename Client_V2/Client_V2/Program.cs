@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -8,21 +9,27 @@ namespace Client_V2
 {
     class Program
     {
+        private static Socket socket;
+        public String Id;
         static void  Main(string[] args)
         {
             try
             {
                 Task<Socket> clientConn = CreateConn();
                 Console.WriteLine("Hello World!");
-                Socket socket = clientConn.Result;
-                String result=RecieveMessage(socket);
-                Console.WriteLine(result);
-                SendMessage(socket);
+                socket = clientConn.Result;
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+
+            ConnToServer connector = new ConnToServer(socket);
+            
+            connector.RecieveMessage();
+            Command command = new Command(connector);
+            
+            command.GetAuthentification("gg","wp");
         }
 
         private static async Task<Socket> CreateConn()
@@ -30,7 +37,7 @@ namespace Client_V2
             var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                await client.ConnectAsync("10.180.94.127", 8080);
+                await client.ConnectAsync("10.162.250.246", 8080);
                 Console.WriteLine("Connected");
                 
             }
@@ -41,23 +48,6 @@ namespace Client_V2
             return client;
         }
 
-        private static void SendMessage(Socket socket)
-        {
-            var message = "check server";
-            byte[] requestData = Encoding.UTF8.GetBytes(message);
-            socket.Send(requestData);
-            Console.WriteLine("Send the message");
-            
-        }
-
-        private static String RecieveMessage(Socket socket)
-        {
-            byte[] bytes = new byte[1024];
-            int bytesRec = socket.Receive(bytes);
-            String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-            return res;
-        }
-        
     }
+    
 }
