@@ -8,14 +8,16 @@ namespace Client_V2
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void  Main(string[] args)
         {
             try
             {
                 Task<Socket> clientConn = CreateConn();
                 Console.WriteLine("Hello World!");
                 Socket socket = clientConn.Result;
-                var send=Task.Run(() =>SendMessageAsync(socket)) ;
+                String result=RecieveMessage(socket);
+                Console.WriteLine(result);
+                SendMessage(socket);
             }
             catch(Exception e)
             {
@@ -32,21 +34,29 @@ namespace Client_V2
                 Console.WriteLine("Connected");
                 
             }
-            catch (IOException ex)
+            catch (SocketException ex)
             {
                 Console.WriteLine(ex.StackTrace);
             }
             return client;
         }
 
-        private static async Task SendMessageAsync(Socket socket)
+        private static void SendMessage(Socket socket)
         {
-            await using var stream = new NetworkStream(socket);
-            var message = "Hello METANIT.COM";
-            var data = Encoding.UTF8.GetBytes(message);
-            await stream.WriteAsync(data);
-            Console.WriteLine("Сообщение отправлено");
+            var message = "check server";
+            byte[] requestData = Encoding.UTF8.GetBytes(message);
+            socket.Send(requestData);
+            Console.WriteLine("Send the message");
             
+        }
+
+        private static String RecieveMessage(Socket socket)
+        {
+            byte[] bytes = new byte[1024];
+            int bytesRec = socket.Receive(bytes);
+            String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+            return res;
         }
         
     }
