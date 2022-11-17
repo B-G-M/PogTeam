@@ -1,0 +1,16 @@
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.exe
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.deps.json
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.runtimeconfig.json
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.runtimeconfig.dev.json
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.dll
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\ref\Client_V2.dll
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\bin\Debug\net5.0\Client_V2.pdb
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.csproj.AssemblyReference.cache
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.AssemblyInfoInputs.cache
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.AssemblyInfo.cs
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.csproj.CoreCompileInputs.cache
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.dll
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\ref\Client_V2.dll
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.pdb
+C:\Users\15nk3\Documents\GitHub\PogTeam\Client_V2\Client_V2\obj\Debug\net5.0\Client_V2.genruntimeconfig.cache
