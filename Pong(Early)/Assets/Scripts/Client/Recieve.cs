@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
+using System.Threading;
 
 public class Recieve : MonoBehaviour
 {
@@ -21,32 +22,36 @@ public class Recieve : MonoBehaviour
         socket = _socket;
     }
 
-    private void Update()
+    /*private void Update()
     {
         RecieveMessage();
-    }
+    }*/
+    
 
     public void RecieveMessage()
     {
-        byte[] bytes = new byte[1024];
-        int bytesRec = socket.Receive(bytes);
-        String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-        String[] param = res.Split(" ");
-
-        switch ((Commands) Enum.Parse(typeof(Commands), param[0]))
+        while (true)
         {
-            case Commands.id:
-                GetID(param);
-                break;
-            case Commands.both_con:
-                Both_Connected();
-                break;
-            case Commands.rdy:
-                Readyness(param);
-                break;
-            case Commands.side:
-                GetSide(param);
-                break;
+            byte[] bytes = new byte[1024];
+            int bytesRec = socket.Receive(bytes);
+            String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            String[] param = res.Split(" ");
+
+            switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
+            {
+                case Commands.id:
+                    GetID(param);
+                    break;
+                case Commands.both_con:
+                    Both_Connected();
+                    break;
+                case Commands.rdy:
+                    Readyness(param);
+                    break;
+                case Commands.side:
+                    GetSide(param);
+                    break;
+            }
         }
     }
     private void GetID(string[] parametrs)

@@ -20,11 +20,11 @@ public class MainMenu : MonoBehaviour
 
     public void Connect()
     {
-        if (login.text == null || password.text == null)
+        /*if (login.text == null || password.text == null)
         {
             Debug.Log("login or password are not valid");
             return;
-        }
+        }*/
         loadAnim.SetActive(true);
         connectButton.enabled = false;
         client.GetComponent<Client>().CreateConn();
