@@ -49,6 +49,7 @@ namespace Server
 				}
 				
 			}
+			
 		}
 
 
@@ -75,7 +76,28 @@ namespace Server
 				
 				return msg;
 			}
-		}
+            private void CommandProcessing(string Request)
+            {
+                string[] requestPart = Request.Split(" ");
+                switch (requestPart[1])
+                {
+                    case "":
+                        Console.WriteLine();
+                        break;
+                    case " ":
+                        Console.WriteLine();
+                        break;
+                    case "  ":
+                        Console.WriteLine();
+                        break;
+                    case "   ":
+                        Console.WriteLine();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
 		static void Main(string[] args)
 		{

@@ -1,8 +1,29 @@
 {
   "version": 2,
-  "dgSpecHash": "rCeMG3yirGRlJBERYt/eRbMg2x3W4F1YI6JTMwLGU+Wgu6VnrB3APGjmyLG9Qg1lA0/UvWelZnVHnvpKEukRWQ==",
+  "dgSpecHash": "xKSN1HD4t7ENEziP9HMZZHkonLHLaeM5dMUJTSSEtPxkGZ5RBDWbdQoo+ww+V8vcj6ksey2DLCDeM6EC2PVLkQ==",
   "success": true,
-  "projectFilePath": "D:\\PogTeam\\Server\\Server.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/Server.csproj",
+  "expectedPackageFiles": [
+    "/Users/tarasandriyevskiy/.nuget/packages/bilibililiverecorddownloader.shared/1.7.0/bilibililiverecorddownloader.shared.1.7.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/dns.net/0.1.0/dns.net.0.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/dns.net.abstractions/0.1.0/dns.net.abstractions.0.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.bcl.asyncinterfaces/5.0.0/microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.visualstudio.liveshare/1.1.57/microsoft.visualstudio.liveshare.1.1.57.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.visualstudio.threading/17.0.64/microsoft.visualstudio.threading.17.0.64.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.0.64/microsoft.visualstudio.threading.analyzers.17.0.64.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.visualstudio.validation/16.10.35/microsoft.visualstudio.validation.16.10.35.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition/1.1.0/system.composition.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition.attributedmodel/1.1.0/system.composition.attributedmodel.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition.convention/1.1.0/system.composition.convention.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition.hosting/1.1.0/system.composition.hosting.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition.runtime/1.1.0/system.composition.runtime.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.composition.typedparts/1.1.0/system.composition.typedparts.1.1.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.reactive/5.0.0/system.reactive.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.security.accesscontrol/5.0.0/system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.security.principal.windows/5.0.0/system.security.principal.windows.5.0.0.nupkg.sha512",
+    "/Users/tarasandriyevskiy/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
   "logs": []
 }
