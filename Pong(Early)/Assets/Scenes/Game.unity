@@ -1611,7 +1611,6 @@ MonoBehaviour:
   cross: {fileID: 21300000, guid: 5417a2c81f12b974685c06b500a34613, type: 3}
   image: {fileID: 953079421}
   gameManager: {fileID: 1463374431}
-  client: {fileID: 0}
 --- !u!114 &880112641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1975,7 +1974,6 @@ MonoBehaviour:
   cross: {fileID: 21300000, guid: 5417a2c81f12b974685c06b500a34613, type: 3}
   image: {fileID: 1916045368}
   gameManager: {fileID: 1463374431}
-  client: {fileID: 0}
 --- !u!114 &1041473715
 MonoBehaviour:
   m_ObjectHideFlags: 0

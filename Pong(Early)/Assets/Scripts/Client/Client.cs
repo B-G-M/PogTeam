@@ -37,8 +37,7 @@ public class Client : MonoBehaviour
             recieve.enabled = true;
             recieve.SetSocket(client);
             send.SetSocket(client);
-            StartThread();
-            //Запускать анимацию
+            ListenForServer();
             Debug.Log("Connected");
         }
         catch (SocketException ex)
@@ -58,10 +57,9 @@ public class Client : MonoBehaviour
         }
     }
 
-    public void StartThread()
+    private void ListenForServer()
     {
-        Thread Listen = new Thread(recieve.RecieveMessage);
-        Listen.Start();
+        recieve.StartListening();  
     }
 //--------------------Send requests-----------------------------
     public void Authirization(string login, string password)
@@ -71,7 +69,6 @@ public class Client : MonoBehaviour
         name = login;
         send.GetAuthentification(login, password);
     }
-    
     public void SendReadyness(bool isReady)
     {
         send.SendReadyness(id, isReady);
