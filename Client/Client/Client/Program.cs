@@ -11,7 +11,7 @@ namespace Client
             bool OK;
             try
             {
-                socket.Connect("192.168.1.67", 80);
+                socket.Connect("26.122.69.5", 1457);
                 OK = true;
             }
             catch (SocketException)
@@ -24,19 +24,19 @@ namespace Client
             {
                 Console.WriteLine($"Подключение к {socket.RemoteEndPoint} установлено");
                 string msg = "ку";
-				//byte[] array = Encoding.UTF8.GetBytes(msg);
-				//socket.Send(array);
+                byte[] array = Encoding.UTF8.GetBytes(msg);
+                socket.Send(array);
+				socket.Send(array);
 
-				
-				
+                
 				while (msg != "stop")
                 {
 					byte[] ans = new byte[1024];
-					socket.Receive(ans); 
-					msg = Encoding.UTF8.GetString(ans);
-					Console.WriteLine(msg);
-				}
-               
+                    socket.Receive(ans);
+                    msg = Encoding.UTF8.GetString(ans);
+                    Console.WriteLine(msg);
+                }
+
             }
         }
     }

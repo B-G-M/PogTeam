@@ -13,53 +13,65 @@ namespace Server
 
 			public void Start() 
 			{
+				Console.WriteLine("Сервер запущен");
 				socket.Bind(ipPoint);
 				socket.Listen(2);
-
+				
 				Game game = new(socket.Accept(), socket.Accept());
 				game.Start();
-
 			}
 		}
 
 		class Game
 		{
-			public Game(Socket p1,Socket p2) {
-				#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
-				player1.socket = p1;
-				player2.socket = p2;
+			public Game(Socket p1,Socket p2) 
+			{
+				Random rnd = new Random();
+				player1 = new Player(p1, rnd.Next(0,99));
+				player2 = new Player(p2, rnd.Next(0,99));
 
-				//убрать этот костыль и сделать конструктор игрока
-				player1.side = "left";
-				player2.side = "right";
+				
+				if (rnd.Next(0, 1) == 0) 
+				{
+					player1.side = 0;
+					player2.side = 1;
+				}
+				else
+				{
+					player1.side = 1;
+					player2.side = 0;
+				}
+				
             }
-			public Player? player1 = new();
-			public Player? player2 = new();
+			public Player? player1;
+			public Player? player2;
 
 			
-
 			public void Start()
 			{
 				string? msg = "";
 				while(msg != "stop")
 				{
-					msg = Console.ReadLine();
-					var msgS = msg.Split(" ");
-					if (msgS[0] == "p1")
-                        player1.SendMsg(msg);
-					else if (msgS[0] == "p2")
-						player2.SendMsg(msg);
-					else if (msgS[0] == "pp")
-                    {
-                        player1.SendMsg(msg);
-                        player2.SendMsg(msg);
-                    }
-                    if (msg == "stop")
-					{
-						player1.socket.Close();
-						player2.socket.Close();
-					}
-					msg = "";
+					player1.ReciveMsg();
+					player2.ReciveMsg();
+
+					//msg = Console.ReadLine();
+					//var msgS = msg.Split(" ");
+					//if (msgS[0] == "p1")
+					//	player1.SendMsg(msg);
+					//else if (msgS[0] == "p2")
+					//	player2.SendMsg(msg);
+					//else if (msgS[0] == "pp")
+					//{
+					//	player1.SendMsg(msg);
+					//	player2.SendMsg(msg);
+					//}
+					//if (msg == "stop")
+					//{
+					//	player1.socket.Close();
+					//	player2.socket.Close();
+					//}
+					//msg = "";
 				}
 				
 			}
@@ -69,11 +81,17 @@ namespace Server
 
 		class Player
 		{
+			public Player(Socket socket,int id)
+			{
+				this.socket = socket;
+				this.id = id;
+				Console.WriteLine("Игрок {0} подключился",id);
+			}
 			public string nickName = "";
 			public string password = "";
 			public int id;
 			public float stickY;
-			public string side = "";
+			public int side;
 
 			public bool IsReady = false;
 
@@ -90,20 +108,22 @@ namespace Server
 				byte[] msgArr = new byte[1024];
 				socket.Receive(msgArr);
 				string msg = Encoding.UTF8.GetString(msgArr);
-				
+				Console.WriteLine("Получено от игрока {0}: {1}", id, msg);
+
+				CommandProcessing(msg);
 				return msg;
 			}
-			private bool AuthPlayer(string login, string pass)
+			private int AuthPlayer(string login, string pass)
             {
-                if (nickName == login && pass == password)
-                {
-					return true;
-                }
-				return false;
+				//if (nickName == login && pass == password)
+				//{
+				//return true;
+				//}
+				return id;
             }
 			private string CheckSide()
             {
-				return side;
+				return side.ToString();
             }
 			private bool ChangeReady(string Readyness)
             {
@@ -117,8 +137,10 @@ namespace Server
                 switch (requestPart[0])
                 {
                     case "auth":
-						if (AuthPlayer(requestPart[1], requestPart[2])) SendMsg("OK");
-						else SendMsg("ERROR");
+						//if (AuthPlayer(requestPart[1], requestPart[2])) SendMsg("OK");
+						//else SendMsg("ERROR");
+						SendMsg("id " + AuthPlayer(requestPart[1], requestPart[2]).ToString());
+						Console.WriteLine("Отправлено игроку {0}: {1}",id,"id " + AuthPlayer(requestPart[1], requestPart[2]));
                         break;
                     case "ch_side":
 						SendMsg(CheckSide());
