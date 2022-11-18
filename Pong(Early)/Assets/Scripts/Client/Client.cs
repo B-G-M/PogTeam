@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -32,10 +33,11 @@ public class Client : MonoBehaviour
         var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         try
         {
-            client.Connect("10.162.250.246", 8080);
+            client.Connect("26.122.69.5", 1457);
             recieve.enabled = true;
             recieve.SetSocket(client);
             send.SetSocket(client);
+            StartThread();
             //Запускать анимацию
             Debug.Log("Connected");
         }
@@ -55,9 +57,17 @@ public class Client : MonoBehaviour
             socket.Close();
         }
     }
+
+    public void StartThread()
+    {
+        Thread Listen = new Thread(recieve.RecieveMessage);
+        Listen.Start();
+    }
 //--------------------Send requests-----------------------------
     public void Authirization(string login, string password)
     {
+        login = "fmfmf";
+        password = "jnvjn";
         name = login;
         send.GetAuthentification(login, password);
     }
