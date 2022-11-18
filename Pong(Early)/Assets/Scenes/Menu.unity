@@ -2913,6 +2913,8 @@ MonoBehaviour:
   authirizationField: {fileID: 1286852552}
   loadAnim: {fileID: 507441753}
   connectButton: {fileID: 478970134}
+  login: {fileID: 1756427524}
+  password: {fileID: 549092066}
 --- !u!1001 &1850246167
 PrefabInstance:
   m_ObjectHideFlags: 0
