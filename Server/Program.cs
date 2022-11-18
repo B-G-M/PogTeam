@@ -8,7 +8,7 @@ namespace Server
 	{
 		class Server
 		{
-			IPEndPoint ipPoint = new IPEndPoint(IPAddress.Any, 80);
+			IPEndPoint ipPoint = new IPEndPoint(IPAddress.Any, 1457);
 			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 			public void Start() 
@@ -28,9 +28,15 @@ namespace Server
 				#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
 				player1.socket = p1;
 				player2.socket = p2;
-			}
+
+				//убрать этот костыль и сделать конструктор игрока
+				player1.side = "left";
+				player2.side = "right";
+            }
 			public Player? player1 = new();
 			public Player? player2 = new();
+
+			
 
 			public void Start()
 			{
@@ -38,9 +44,17 @@ namespace Server
 				while(msg != "stop")
 				{
 					msg = Console.ReadLine();
-					player1.SendMsg(msg);
-					player2.SendMsg(msg);
-					if (msg == "stop")
+					var msgS = msg.Split(" ");
+					if (msgS[0] == "p1")
+                        player1.SendMsg(msg);
+					else if (msgS[0] == "p2")
+						player2.SendMsg(msg);
+					else if (msgS[0] == "pp")
+                    {
+                        player1.SendMsg(msg);
+                        player2.SendMsg(msg);
+                    }
+                    if (msg == "stop")
 					{
 						player1.socket.Close();
 						player2.socket.Close();
@@ -55,10 +69,13 @@ namespace Server
 
 		class Player
 		{
-			public string? nickName;
-			public string? password;
+			public string nickName = "";
+			public string password = "";
 			public int id;
 			public float stickY;
+			public string side = "";
+
+			public bool IsReady = false;
 
 			public Socket? socket;
 
@@ -76,19 +93,39 @@ namespace Server
 				
 				return msg;
 			}
+			private bool AuthPlayer(string login, string pass)
+            {
+                if (nickName == login && pass == password)
+                {
+					return true;
+                }
+				return false;
+            }
+			private string CheckSide()
+            {
+				return side;
+            }
+			private bool ChangeReady(string Readyness)
+            {
+				if (Readyness == "true" && !IsReady) IsReady = true;
+				else if (Readyness == "false" && IsReady) IsReady = false;
+				return IsReady;
+            }
             private void CommandProcessing(string Request)
             {
                 string[] requestPart = Request.Split(" ");
-                switch (requestPart[1])
+                switch (requestPart[0])
                 {
-                    case "":
-                        Console.WriteLine();
+                    case "auth":
+						if (AuthPlayer(requestPart[1], requestPart[2])) SendMsg("OK");
+						else SendMsg("ERROR");
                         break;
-                    case " ":
-                        Console.WriteLine();
+                    case "ch_side":
+						SendMsg(CheckSide());
                         break;
-                    case "  ":
-                        Console.WriteLine();
+                    case "rdy":
+						if (ChangeReady(requestPart[2])) SendMsg("Ready");
+						else SendMsg("Not Ready");
                         break;
                     case "   ":
                         Console.WriteLine();
@@ -103,6 +140,7 @@ namespace Server
 		{
 			Server server = new Server();
 			server.Start();
+
 		}
 	}
 }
