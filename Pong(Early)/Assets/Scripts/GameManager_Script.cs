@@ -24,8 +24,8 @@ public class GameManager_Script : MonoBehaviour
 
     private void Awake()
     {
-        WaitingStage_On();
-        ReadyStage_Off();
+        WaitingStage_Off();
+        ReadyStage_On();
         brackets.GetComponent<CanvasGroup>().alpha = 0f;
         brackets.GetComponent<CanvasGroup>().interactable = false;
     }

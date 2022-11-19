@@ -72,8 +72,6 @@ public class Recieve : MonoBehaviour
                 break;
         }
     }
-        
-    
     /*public void RecieveMessage()
     {
         byte[] bytes = new byte[1024];
@@ -101,24 +99,24 @@ public class Recieve : MonoBehaviour
     private static void GetID(string[] parametrs)
     {
         client.GetId(parametrs);
-        testThread.Start();
+        //testThread.Start();
     }
 
     private static void Both_Connected()
     {
         client.Both_Connected();
-        testThread.Start();
+        //testThread.Start();
     }
 
     private static void Readyness(string[] parametrs)
     {
         client.Readyness(parametrs);
-        testThread.Start();
+        //testThread.Start();
     }
 
     private static void GetSide(string[] parametrs)
     {
         client.GetSide(parametrs);
-        testThread.Start();
+        //testThread.Start();
     }
 }

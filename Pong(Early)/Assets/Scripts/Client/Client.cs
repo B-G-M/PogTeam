@@ -33,7 +33,7 @@ public class Client : MonoBehaviour
         var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         try
         {
-            client.Connect("26.122.69.5", 1457);
+            client.Connect("10.102.228.103", 1457);
             recieve.enabled = true;
             recieve.SetSocket(client);
             send.SetSocket(client);
