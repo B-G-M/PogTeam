@@ -26,6 +26,7 @@ public class GameManager_Script : MonoBehaviour
     {
         WaitingStage_Off();
         ReadyStage_On();
+        client.GetComponent<Client>().RequestSide();
         brackets.GetComponent<CanvasGroup>().alpha = 0f;
         brackets.GetComponent<CanvasGroup>().interactable = false;
     }
@@ -85,13 +86,13 @@ public class GameManager_Script : MonoBehaviour
         if (!rightPlayer_status)
         {
             rightPlayer_status = true;
-            client.GetComponent<Client>().SendReadyness(rightPlayer_status);
+            //client.GetComponent<Client>().SendReadyness(rightPlayer_status);
             CheckPlayersStatus();
         }
         else
         {
             rightPlayer_status = false;
-            client.GetComponent<Client>().SendReadyness(rightPlayer_status);
+            //client.GetComponent<Client>().SendReadyness(rightPlayer_status);
             CheckPlayersStatus();
         }
     }
@@ -101,13 +102,13 @@ public class GameManager_Script : MonoBehaviour
         if (!leftPlayer_status)
         {
             leftPlayer_status = true;
-            client.GetComponent<Client>().SendReadyness(leftPlayer_status);
+            //client.GetComponent<Client>().SendReadyness(leftPlayer_status);
             CheckPlayersStatus();
         }
         else
         {
             leftPlayer_status = false;
-            client.GetComponent<Client>().SendReadyness(leftPlayer_status);
+            //client.GetComponent<Client>().SendReadyness(leftPlayer_status);
             CheckPlayersStatus();
         }
     }
@@ -156,6 +157,18 @@ public class GameManager_Script : MonoBehaviour
         {
             leftPlayerBtn.enabled = true;
         }
+    }
+
+    public void Acceptreadyness()
+    {
+        if(side == 0) RightPlayerStatus();
+        else LeftPlayerStatus();
+    }
+
+    public void SendReadyness()
+    {
+        if(side == 0) client.GetComponent<Client>().SendReadyness(rightPlayer_status);
+        else client.GetComponent<Client>().SendReadyness(leftPlayer_status);
     }
 
    

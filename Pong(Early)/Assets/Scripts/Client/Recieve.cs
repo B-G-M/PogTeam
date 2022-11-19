@@ -18,7 +18,8 @@ public class Recieve : MonoBehaviour
         id,
         both_con,
         rdy,
-        side
+        side,
+        rdy_ok
     }
 
     private void Awake()
@@ -70,6 +71,12 @@ public class Recieve : MonoBehaviour
                     GetSide(param);
                 }));
                 break;
+            case Commands.rdy_ok:
+                _threadManager.ExecuteOnMainThread(() =>
+                {
+                    AcceptReadyness();
+                });
+                break;
         }
     }
     /*public void RecieveMessage()
@@ -118,5 +125,10 @@ public class Recieve : MonoBehaviour
     {
         client.GetSide(parametrs);
         //testThread.Start();
+    }
+
+    private static void AcceptReadyness()
+    {
+        client.AcceptReadyness();
     }
 }

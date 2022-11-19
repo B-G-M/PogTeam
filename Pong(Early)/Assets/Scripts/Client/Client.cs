@@ -72,7 +72,12 @@ public class Client : MonoBehaviour
     public void SendReadyness(bool isReady)
     {
         send.SendReadyness(id, isReady);
-    } 
+    }
+
+    public void RequestSide()
+    {
+        send.SendSide();
+    }
 //---------------------------------------------------------------    
 
 
@@ -97,6 +102,11 @@ public class Client : MonoBehaviour
     public void Readyness(string[] parametrs)
     {
         gameManager.GetComponent<GameManager_Script>().SetOtherPlayerStatus(Convert.ToBoolean(parametrs[1]));
+    }
+
+    public void AcceptReadyness()
+    {
+        gameManager.GetComponent<GameManager_Script>().Acceptreadyness();
     }
 //----------------------------------------------------------------
     

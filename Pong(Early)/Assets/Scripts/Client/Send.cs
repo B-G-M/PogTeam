@@ -23,9 +23,9 @@ public class Send : MonoBehaviour
         socket.Send(requestData);
     }
 
-    public void SendSide(int id, int side)
+    public void SendSide()
     {
-        string message = $"ch_side {id} {side}";
+        string message = $"ch_side";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
     }
