@@ -40,43 +40,32 @@ public class Recieve : MonoBehaviour
     }
     private void ThreadAction() 
     {
-        byte[] bytes = new byte[1024];
-        int bytesRec = socket.Receive(bytes);
-        String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-        String[] param = res.Split(" ");
-
-        switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
+        while (true)
         {
-            case Commands.id:
-                _threadManager.ExecuteOnMainThread(() =>
-                {
-                    GetID(param);
-                });
-                break;
-            case Commands.both_con:
-                _threadManager.ExecuteOnMainThread((() =>
-                {
-                    Both_Connected();
-                }));
-                break;
-            case Commands.rdy:
-                _threadManager.ExecuteOnMainThread((() =>
-                {
-                    Readyness(param);
-                }));
-                break;
-            case Commands.side:
-                _threadManager.ExecuteOnMainThread((() =>
-                {
-                    GetSide(param);
-                }));
-                break;
-            case Commands.rdy_ok:
-                _threadManager.ExecuteOnMainThread(() =>
-                {
-                    AcceptReadyness();
-                });
-                break;
+            byte[] bytes = new byte[1024];
+            int bytesRec = socket.Receive(bytes);
+            String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            String[] param = res.Split(" ");
+            if (param[0] == "side") Debug.Log("command side accepted");
+
+            switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
+            {
+                case Commands.id:
+                    _threadManager.ExecuteOnMainThread(() => { GetID(param); });
+                    break;
+                case Commands.both_con:
+                    _threadManager.ExecuteOnMainThread((() => { Both_Connected(); }));
+                    break;
+                case Commands.rdy:
+                    _threadManager.ExecuteOnMainThread((() => { Readyness(param); }));
+                    break;
+                case Commands.side:
+                    _threadManager.ExecuteOnMainThread((() => { GetSide(param); }));
+                    break;
+                case Commands.rdy_ok:
+                    _threadManager.ExecuteOnMainThread(() => { AcceptReadyness(); });
+                    break;
+            }
         }
     }
     /*public void RecieveMessage()
@@ -123,6 +112,7 @@ public class Recieve : MonoBehaviour
 
     private static void GetSide(string[] parametrs)
     {
+        Debug.Log("message: "+parametrs[0]+parametrs[1]);
         client.GetSide(parametrs);
         //testThread.Start();
     }

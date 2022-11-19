@@ -19,11 +19,13 @@ public class GameManager_Script : MonoBehaviour
     private int? side;
     [SerializeField] private TMP_Text name_right;
     [SerializeField] private TMP_Text name_left;
-    [SerializeField] private Button rightPlayerBtn;
-    [SerializeField] private Button leftPlayerBtn;
+    [SerializeField] private GameObject rightPlayerBtn;
+    [SerializeField] private GameObject leftPlayerBtn;
 
     private void Awake()
     {
+        client = GameObject.Find("TCP_Client");
+        client.GetComponent<Client>().SetGameManager(gameObject);
         WaitingStage_Off();
         ReadyStage_On();
         client.GetComponent<Client>().RequestSide();
@@ -136,6 +138,7 @@ public class GameManager_Script : MonoBehaviour
             leftPlayer.GetComponent<Player_Script>().enabled = false;
             name_right.enabled = true;
             name_right.text = client.GetComponent<Client>().name;
+            rightPlayerBtn.SetActive(true);
         }
         else
         {
@@ -143,20 +146,21 @@ public class GameManager_Script : MonoBehaviour
             rightPlayer.GetComponent<Player_Script>().enabled = false;
             name_left.enabled = true;
             name_left.text = client.GetComponent<Client>().name;
+            leftPlayerBtn.SetActive(true);
         }
     }
 
     public void BothConnected()
     {
-        ReadyStage_On();
-        if (side == 0)
-        {
-            rightPlayerBtn.enabled = true;
-        }
-        else
-        {
-            leftPlayerBtn.enabled = true;
-        }
+        // ReadyStage_On();
+        // if (side == 0)
+        // {
+        //     rightPlayerBtn.enabled = true;
+        // }
+        // else
+        // {
+        //     leftPlayerBtn.enabled = true;
+        // }
     }
 
     public void Acceptreadyness()

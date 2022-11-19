@@ -25,7 +25,7 @@ public class Send : MonoBehaviour
 
     public void SendSide()
     {
-        string message = $"ch_side";
+        string message = $"ch_side ";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
     }

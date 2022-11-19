@@ -20,12 +20,17 @@ public class Client : MonoBehaviour
     [SerializeField] private Recieve recieve;
     [SerializeField] private Send send;
     [SerializeField] private GameObject loadAnim;
-    [SerializeField] private Button connectButton;
+    [SerializeField] private GameObject connectButton;
     [SerializeField] private TMP_Text text;
     
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void SetGameManager(GameObject gm)
+    {
+        gameManager = gm;
     }
     
     public  Socket CreateConn()
@@ -33,7 +38,10 @@ public class Client : MonoBehaviour
         var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         try
         {
-            client.Connect("10.102.228.103", 1457);
+            connectButton.SetActive(false);
+            text.enabled = false;
+            loadAnim.SetActive(true);
+            client.Connect("26.149.21.51", 1457);
             recieve.enabled = true;
             recieve.SetSocket(client);
             send.SetSocket(client);
@@ -43,7 +51,7 @@ public class Client : MonoBehaviour
         catch (SocketException ex)
         {
             Debug.Log(ex.StackTrace);
-            connectButton.enabled = true;
+            connectButton.SetActive(true);
             text.enabled = true;
             loadAnim.SetActive(false);
         }
@@ -92,6 +100,7 @@ public class Client : MonoBehaviour
     public void GetSide(string[] parametrs)
     {
         gameManager.GetComponent<GameManager_Script>().SetSide(Convert.ToInt32(parametrs[1]));
+        Debug.Log("My side: "+parametrs[1]);
     }
 
     public void Both_Connected()
