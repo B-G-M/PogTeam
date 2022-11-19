@@ -5,15 +5,14 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using System.Threading;
-using Unity.VisualScripting;
 
 public class Recieve : MonoBehaviour
 {
     [SerializeField] private static Client client;
-    private static object sync = new object();
-    public static Queue <Action> queue = new Queue<Action>();
+    [SerializeField] private static ThreadManager _threadManager;
     private static Socket socket;
-    private Thread testThread = null;
+    private static Thread testThread = null;
+    
     private enum Commands
     {
         id,
@@ -22,27 +21,15 @@ public class Recieve : MonoBehaviour
         side
     }
 
-
-    public void Update()
+    private void Awake()
     {
-        lock (sync)
-        {
-            foreach (var action in queue)
-            {
-                action.Invoke();
-                queue.Dequeue();
-            }
-        }
+        client = GetComponent<Client>();
+        _threadManager = GetComponent<ThreadManager>();
     }
+    
     public void SetSocket(Socket _socket)
     {
         socket = _socket;
-    }
-    public static void Execute(Action action){
-        lock(sync){ 
-            queue.Enqueue(action);
-        }
-        Thread.Sleep(1000);
     }
 
     public void StartListening()
@@ -60,32 +47,28 @@ public class Recieve : MonoBehaviour
         switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
         {
             case Commands.id:
-                Execute(() =>
+                _threadManager.ExecuteOnMainThread(() =>
                 {
                     GetID(param);
-                    testThread.Interrupt();
                 });
                 break;
             case Commands.both_con:
-                Execute(() =>
+                _threadManager.ExecuteOnMainThread((() =>
                 {
                     Both_Connected();
-                    testThread.Interrupt();
-                });
+                }));
                 break;
             case Commands.rdy:
-                Execute(() =>
+                _threadManager.ExecuteOnMainThread((() =>
                 {
                     Readyness(param);
-                    testThread.Interrupt();
-                });
+                }));
                 break;
             case Commands.side:
-                Execute(() =>
+                _threadManager.ExecuteOnMainThread((() =>
                 {
                     GetSide(param);
-                    testThread.Interrupt();
-                });
+                }));
                 break;
         }
     }
@@ -118,20 +101,24 @@ public class Recieve : MonoBehaviour
     private static void GetID(string[] parametrs)
     {
         client.GetId(parametrs);
+        testThread.Start();
     }
 
     private static void Both_Connected()
     {
         client.Both_Connected();
+        testThread.Start();
     }
 
     private static void Readyness(string[] parametrs)
     {
         client.Readyness(parametrs);
+        testThread.Start();
     }
 
     private static void GetSide(string[] parametrs)
     {
         client.GetSide(parametrs);
+        testThread.Start();
     }
 }

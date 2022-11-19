@@ -381,6 +381,7 @@
 "Assets/Scripts/Client/Client.cs"
 "Assets/Scripts/Client/Recieve.cs"
 "Assets/Scripts/Client/Send.cs"
+"Assets/Scripts/Client/ThreadManager.cs"
 "Assets/Scripts/GameManager_Script.cs"
 "Assets/Scripts/MainMenu.cs"
 "Assets/Scripts/Player_Script.cs"
