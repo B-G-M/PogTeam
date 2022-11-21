@@ -149,20 +149,7 @@ public class GameManager_Script : MonoBehaviour
             leftPlayerBtn.SetActive(true);
         }
     }
-
-    public void BothConnected()
-    {
-        // ReadyStage_On();
-        // if (side == 0)
-        // {
-        //     rightPlayerBtn.enabled = true;
-        // }
-        // else
-        // {
-        //     leftPlayerBtn.enabled = true;
-        // }
-    }
-
+    
     public void Acceptreadyness()
     {
         if(side == 0) RightPlayerStatus();
