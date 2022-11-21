@@ -86,6 +86,15 @@ public class Client : MonoBehaviour
     {
         send.SendSide();
     }
+
+    public void SendSatus(string status)
+    {
+        send.SendStatus(status);
+    }
+    public void ResendLastCommand()
+    {
+        send.ResendLastCommand();
+    }
 //---------------------------------------------------------------    
 
 
@@ -102,12 +111,6 @@ public class Client : MonoBehaviour
         gameManager.GetComponent<GameManager_Script>().SetSide(Convert.ToInt32(parametrs[1]));
         Debug.Log("My side: "+parametrs[1]);
     }
-
-    public void Both_Connected()
-    {
-        gameManager.GetComponent<GameManager_Script>().BothConnected();
-    }
-
     public void Readyness(string[] parametrs)
     {
         gameManager.GetComponent<GameManager_Script>().SetOtherPlayerStatus(Convert.ToBoolean(parametrs[1]));

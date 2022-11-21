@@ -16,10 +16,10 @@ public class Recieve : MonoBehaviour
     private enum Commands
     {
         id,
-        both_con,
         rdy,
         side,
-        rdy_ok
+        rdy_ok,
+        error
     }
 
     private void Awake()
@@ -45,16 +45,11 @@ public class Recieve : MonoBehaviour
             byte[] bytes = new byte[1024];
             int bytesRec = socket.Receive(bytes);
             String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            String[] param = res.Split(" ");
-            if (param[0] == "side") Debug.Log("command side accepted");
-
+            String[] param = res.Split("_");
             switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
             {
                 case Commands.id:
                     _threadManager.ExecuteOnMainThread(() => { GetID(param); });
-                    break;
-                case Commands.both_con:
-                    _threadManager.ExecuteOnMainThread((() => { Both_Connected(); }));
                     break;
                 case Commands.rdy:
                     _threadManager.ExecuteOnMainThread((() => { Readyness(param); }));
@@ -65,45 +60,18 @@ public class Recieve : MonoBehaviour
                 case Commands.rdy_ok:
                     _threadManager.ExecuteOnMainThread(() => { AcceptReadyness(); });
                     break;
+                case Commands.error:
+                    _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
+                    break;
             }
         }
     }
-    /*public void RecieveMessage()
-    {
-        byte[] bytes = new byte[1024];
-        int bytesRec = socket.Receive(bytes);
-        if (bytesRec == 0) return;
-        String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-        String[] param = res.Split(" ");
-
-        switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
-        {
-            case Commands.id:
-                GetID(param);
-                break;
-            case Commands.both_con:
-                Both_Connected();
-                break;
-            case Commands.rdy:
-                Readyness(param);
-                break;
-            case Commands.side:
-                GetSide(param);
-                break;
-        }
-    }*/
     private static void GetID(string[] parametrs)
     {
         client.GetId(parametrs);
         //testThread.Start();
     }
-
-    private static void Both_Connected()
-    {
-        client.Both_Connected();
-        //testThread.Start();
-    }
-
+    
     private static void Readyness(string[] parametrs)
     {
         client.Readyness(parametrs);
@@ -120,5 +88,15 @@ public class Recieve : MonoBehaviour
     private static void AcceptReadyness()
     {
         client.AcceptReadyness();
+    }
+
+    private static void ReSendLastCommand()
+    {
+        client.ResendLastCommand();
+    }
+
+    private static void SendStatus(string status)
+    {
+        client.SendSatus(status);
     }
 }
