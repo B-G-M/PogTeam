@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System;
 using System.Linq;
 
 namespace AuntificationAPI
@@ -13,21 +12,23 @@ namespace AuntificationAPI
             // добавление данных
             using (ApplicationContext db = new ApplicationContext())
             {
-                User user1 = new User { Name = "Tom", Age = 33 };
-                User user2 = new User { Name = "Alice", Age = 26 };
+
+                User user1 = new User { Email = "Tom@mail.com", Password = "33",WinGames= 0 };
+                User user2 = new User { Email = "Jaff@mail.com", Password = "44", WinGames = 5 };
 
                 db.Users.AddRange(user1, user2);
                 db.SaveChanges();
+
+             
             }
             // получение данных
             using (ApplicationContext db = new ApplicationContext())
             {
-                var users = db.Users.ToList();
-                Console.WriteLine("Список объектов:");
-                foreach (User u in users)
-                {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
-                }
+
+                AuntificationMethods.Login("Jaff@mail.com", "44");
+
+                AuntificationMethods.Registration("Jaff@mail.com", "44");
+                AuntificationMethods.Registration("Garry@mail.com", "46");
             }
         }
     }
