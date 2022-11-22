@@ -60,6 +60,8 @@ namespace Server
 			public void Start()
 			{
 				string? msg = "";
+				player1.Enemy = player2;
+                player2.Enemy = player1;
 				Thread recP1 = new Thread(player1.ReciveMsg);
 				Thread recP2 = new Thread(player2.ReciveMsg);
 				recP1.Start();
@@ -113,7 +115,9 @@ namespace Server
 				Console.WriteLine("Игрок {0} подключился", id);
 			}
 
-			public string nickName;
+			Player _enemy;
+			public Player Enemy { set { _enemy = value; } }
+            public string nickName;
 			public string password;
 			public int id;
 			public float stickY;
@@ -168,6 +172,14 @@ namespace Server
 			private void CommandProcessing(string request)
 			{
 				string[] requestPart = request.Split("_");
+
+                if (requestPart[1] == "ERROR")
+                {
+					_enemy.socket.Shutdown(0);
+					_enemy.socket.Close();
+					socket.Shutdown(0);
+					socket.Close();
+                }
 				switch (requestPart[0])
 				{
 					case "auth":
@@ -180,7 +192,7 @@ namespace Server
 
 						break;
 					case "ch_side":
-						SendMsg(CheckSide());
+						SendMsg("side_" + CheckSide() + "_" + _enemy.nickName);
 						break;
 					case "rdy":
 						if (ChangeReady(requestPart[2])) SendMsg("Ready");
