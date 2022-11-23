@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button connectButton;
     [SerializeField] private TMP_InputField login;
     [SerializeField] private TMP_InputField password;
+    [SerializeField] private TMP_Text warningText;
     public void Play()
     {
         authirizationField.SetActive(true);
@@ -20,15 +21,17 @@ public class MainMenu : MonoBehaviour
 
     public void Connect()
     {
-        /*if (login.text == null || password.text == null)
+        warningText.enabled = true;
+        if (login.text == "" || password.text == "")
         {
-            Debug.Log("login or password are not valid");
+            warningText.text = "login or password are not valid";
             return;
-        }*/
+        }
         loadAnim.SetActive(true);
         connectButton.enabled = false;
         client.GetComponent<Client>().CreateConn();
         client.GetComponent<Client>().Authirization(login.text, password.text);
+        warningText.enabled = false;
     }
 
     public void Quit()

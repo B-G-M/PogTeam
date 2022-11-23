@@ -26,7 +26,15 @@ public class Send : MonoBehaviour
     }
     public void GetAuthentification(String login, String password)
     {
-        lastExecutedCommand.Dequeue();
+        try
+        {
+            lastExecutedCommand.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Queue is empry: {ex}");
+        }
+        
         String message = $"auth_{login}_{password};";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
@@ -35,7 +43,15 @@ public class Send : MonoBehaviour
 
     public void SendSide()
     {
-        lastExecutedCommand.Dequeue();
+        try
+        {
+            lastExecutedCommand.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Queue is empry: {ex}");
+        }
+        
         string message = $"ch_side;";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
@@ -44,7 +60,15 @@ public class Send : MonoBehaviour
 
     public void SendReadyness(int id, bool ready)
     {
-        lastExecutedCommand.Dequeue();
+        try
+        {
+            lastExecutedCommand.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Queue is empry: {ex}");
+        }
+        
         string message = $"rdy_{id}_{ready};";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);

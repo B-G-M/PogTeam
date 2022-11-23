@@ -38,6 +38,31 @@ public class Recieve : MonoBehaviour
         testThread = new Thread(new ThreadStart(ThreadAction));
         testThread.Start();
     }
+
+    private void switchFunc(string[] arguments)
+    {
+        switch ((Commands)Enum.Parse(typeof(Commands), arguments[0]))
+        {
+            case Commands.id:
+                _threadManager.ExecuteOnMainThread(() => { GetID(arguments); });
+                break;
+            case Commands.rdy:
+                _threadManager.ExecuteOnMainThread((() => { Readyness(arguments); }));
+                break;
+            case Commands.side:
+                _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
+                break;
+            case Commands.rdy_ok:
+                _threadManager.ExecuteOnMainThread(() => { AcceptReadyness(); });
+                break;
+            case Commands.error:
+                _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
+                break;
+            default:
+                SendStatus($"error_{arguments[0]}");
+                break;
+        }
+    }
     private void ThreadAction() 
     {
         while (true)
@@ -45,24 +70,11 @@ public class Recieve : MonoBehaviour
             byte[] bytes = new byte[1024];
             int bytesRec = socket.Receive(bytes);
             String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            String[] param = res.Split("_");
-            switch ((Commands)Enum.Parse(typeof(Commands), param[0]))
+            String[] commands = res.Split(";");
+            for (int i = 0; i < commands.Length - 1; i++)
             {
-                case Commands.id:
-                    _threadManager.ExecuteOnMainThread(() => { GetID(param); });
-                    break;
-                case Commands.rdy:
-                    _threadManager.ExecuteOnMainThread((() => { Readyness(param); }));
-                    break;
-                case Commands.side:
-                    _threadManager.ExecuteOnMainThread((() => { GetSide(param); }));
-                    break;
-                case Commands.rdy_ok:
-                    _threadManager.ExecuteOnMainThread(() => { AcceptReadyness(); });
-                    break;
-                case Commands.error:
-                    _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
-                    break;
+                String[] param = commands[i].Split("_");
+                switchFunc(param);
             }
         }
     }
