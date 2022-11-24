@@ -58,9 +58,9 @@ public class Recieve : MonoBehaviour
             case Commands.error:
                 _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
                 break;
-            default:
+            /*default:
                 SendStatus($"error_{arguments[0]}");
-                break;
+                break;*/
         }
     }
     private void ThreadAction() 

@@ -129,24 +129,29 @@ public class GameManager_Script : MonoBehaviour
         }
     }
 
-    public void SetSide(int _side)
+    public void SetSide(int _side, string enemyName)
     {
         side = _side;
-        if (side == 0)
+        switch (side)
         {
-            rightPlayer.GetComponent<Player_Script>().enabled = true;
-            leftPlayer.GetComponent<Player_Script>().enabled = false;
-            name_right.enabled = true;
-            name_right.text = client.GetComponent<Client>().name;
-            rightPlayerBtn.SetActive(true);
-        }
-        else
-        {
-            leftPlayer.GetComponent<Player_Script>().enabled = true;
-            rightPlayer.GetComponent<Player_Script>().enabled = false;
-            name_left.enabled = true;
-            name_left.text = client.GetComponent<Client>().name;
-            leftPlayerBtn.SetActive(true);
+            case 0:
+                rightPlayer.GetComponent<Player_Script>().enabled = true;
+                leftPlayer.GetComponent<Player_Script>().enabled = false;
+                name_right.enabled = true;
+                name_left.enabled = true;
+                name_right.text = client.GetComponent<Client>().name;
+                name_left.text = enemyName;
+                rightPlayerBtn.SetActive(true);
+                break;
+            case 1:
+                leftPlayer.GetComponent<Player_Script>().enabled = true;
+                rightPlayer.GetComponent<Player_Script>().enabled = false;
+                name_left.enabled = true;
+                name_right.enabled = true;
+                name_left.text = client.GetComponent<Client>().name;
+                name_right.text = enemyName; 
+                leftPlayerBtn.SetActive(true);
+                break;
         }
     }
     
@@ -161,6 +166,4 @@ public class GameManager_Script : MonoBehaviour
         if(side == 0) client.GetComponent<Client>().SendReadyness(rightPlayer_status);
         else client.GetComponent<Client>().SendReadyness(leftPlayer_status);
     }
-
-   
 }

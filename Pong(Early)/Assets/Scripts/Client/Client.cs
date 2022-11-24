@@ -33,18 +33,18 @@ public class Client : MonoBehaviour
         gameManager = gm;
     }
     
-    public  Socket CreateConn()
+    public void CreateConn()
     {
-        var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         try
         {
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            client.Connect("26.149.21.51", 1457);
+            socket.Connect("192.168.1.9", 1457);
             recieve.enabled = true;
-            recieve.SetSocket(client);
-            send.SetSocket(client);
+            recieve.SetSocket(socket);
+            send.SetSocket(socket);
             ListenForServer();
             Debug.Log("Connected");
         }
@@ -55,7 +55,7 @@ public class Client : MonoBehaviour
             text.enabled = true;
             loadAnim.SetActive(false);
         }
-        return client;
+        
     }
     public void ExitGame()
     {
@@ -72,8 +72,6 @@ public class Client : MonoBehaviour
 //--------------------Send requests-----------------------------
     public void Authirization(string login, string password)
     {
-        login = "fmfmf";
-        password = "jnvjn";
         name = login;
         send.GetAuthentification(login, password);
     }
@@ -108,7 +106,7 @@ public class Client : MonoBehaviour
 
     public void GetSide(string[] parametrs)
     {
-        gameManager.GetComponent<GameManager_Script>().SetSide(Convert.ToInt32(parametrs[1]));
+        gameManager.GetComponent<GameManager_Script>().SetSide(Convert.ToInt32(parametrs[1]), parametrs[2]);
         Debug.Log("My side: "+parametrs[1]);
     }
     public void Readyness(string[] parametrs)
