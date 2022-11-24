@@ -117,6 +117,7 @@ namespace Server
 				this.socket = socket;
 				this.id = rnd.Next(0, 99);//поменять генерацию 
 				Console.WriteLine("Игрок {0} подключился", id);
+				stickY = 0.0f;
 			}
 
 			Player _enemy;
@@ -124,11 +125,15 @@ namespace Server
             public string nickName;
 			public string password;
 			public int id;
-			public float stickY;
-			public int side;
-
 			public bool IsReady = false;
-
+			
+			public float stickY;
+			private float StepSize = 0.5f;
+			public int side;
+			private float speed = 5.0f;
+			private float UpperRange = 4.62f;
+			private float LowerRange = -4.564f;
+			
 			public Socket socket;
 
 			public bool SendMsg(string msg)
@@ -179,6 +184,48 @@ namespace Server
 				if (readyness == "True" && !IsReady) IsReady = true;
 				else if (readyness == "False" && IsReady) IsReady = false;
 				return IsReady;
+			}
+
+			private string MoveUpCalculating()
+			{
+				string comand = "";
+
+				comand += stickY.ToString() + "_";
+				
+				if (stickY + StepSize < UpperRange)
+				{
+					comand += StepSize.ToString();
+					stickY += StepSize;
+				}
+				else
+				{
+					comand += (UpperRange - stickY).ToString();
+					stickY = UpperRange;
+				}
+
+				comand += "_" + speed.ToString();
+
+				return comand;
+			}
+			private string MoveDownCalculating()
+			{
+				string comand = "";
+				comand += stickY.ToString() + "_-";
+
+				if (stickY - StepSize > LowerRange)
+				{
+					comand += StepSize.ToString();
+					stickY -= StepSize;
+				}
+				else
+				{
+					comand += (LowerRange - stickY).ToString();
+					stickY = LowerRange;
+				}
+
+				comand += "_" + speed.ToString();
+
+				return comand;
 			}
 			private bool CommandProcessing(string request)
 			{
@@ -231,6 +278,16 @@ namespace Server
 						}
 						break;
 
+					case "moveUp":
+						ansver = "moveUp_";
+						ansver += MoveUpCalculating();
+						break;
+					
+					case "moveDown":
+						ansver = "moveDown_";
+						ansver += MoveDownCalculating();
+						break;
+					
 					default:
 
 						ansver = "ERROR";
