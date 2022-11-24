@@ -279,13 +279,15 @@ namespace Server
 						break;
 
 					case "moveUp":
-						ansver = "moveUp_";
-						ansver += MoveUpCalculating();
+						ansver = MoveUpCalculating();
+						_enemy.SendMsg("sMoveUp_" + ansver);
+						ansver = "moveUp_" + ansver;
 						break;
 					
 					case "moveDown":
-						ansver = "moveDown_";
-						ansver += MoveDownCalculating();
+						ansver = MoveDownCalculating();
+						_enemy.SendMsg("sMoveDown_" + ansver);
+						ansver = "moveDown_" + ansver;
 						break;
 					
 					default:
