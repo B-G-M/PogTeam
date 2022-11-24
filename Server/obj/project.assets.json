@@ -10,14 +10,10 @@
           "System.Reactive": "5.0.0"
         },
         "compile": {
-          "lib/net6.0/BilibiliLiveRecordDownLoader.Shared.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/BilibiliLiveRecordDownLoader.Shared.dll": {}
         },
         "runtime": {
-          "lib/net6.0/BilibiliLiveRecordDownLoader.Shared.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/BilibiliLiveRecordDownLoader.Shared.dll": {}
         }
       },
       "Dns.Net/0.1.0": {
@@ -27,40 +23,28 @@
           "Microsoft.VisualStudio.Validation": "16.10.34"
         },
         "compile": {
-          "lib/net5.0/Dns.Net.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dns.Net.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Dns.Net.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dns.Net.dll": {}
         }
       },
       "Dns.Net.Abstractions/0.1.0": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Dns.Net.Abstractions.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dns.Net.Abstractions.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Dns.Net.Abstractions.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dns.Net.Abstractions.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {
@@ -78,14 +62,10 @@
           "System.Composition": "1.1.0"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.LiveShare.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.VisualStudio.LiveShare.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.LiveShare.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.VisualStudio.LiveShare.dll": {}
         }
       },
       "Microsoft.VisualStudio.Threading/17.0.64": {
@@ -98,14 +78,10 @@
           "System.Threading.Tasks.Extensions": "4.5.4"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.VisualStudio.Threading.dll": {
-            "related": ".xml"
-          }
+          "lib/netcoreapp3.1/Microsoft.VisualStudio.Threading.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.VisualStudio.Threading.dll": {
-            "related": ".xml"
-          }
+          "lib/netcoreapp3.1/Microsoft.VisualStudio.Threading.dll": {}
         },
         "resource": {
           "lib/netcoreapp3.1/cs/Microsoft.VisualStudio.Threading.resources.dll": {
@@ -158,14 +134,10 @@
       "Microsoft.VisualStudio.Validation/16.10.35": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.Validation.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.VisualStudio.Validation.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.Validation.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.VisualStudio.Validation.dll": {}
         },
         "resource": {
           "lib/netstandard2.0/cs/Microsoft.VisualStudio.Validation.resources.dll": {
@@ -216,14 +188,10 @@
           "System.Security.Principal.Windows": "5.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {
-            "related": ".xml"
-          }
+          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
@@ -301,14 +269,10 @@
       "System.Reactive/5.0.0": {
         "type": "package",
         "compile": {
-          "lib/net5.0/System.Reactive.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/System.Reactive.dll": {}
         },
         "runtime": {
-          "lib/net5.0/System.Reactive.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/System.Reactive.dll": {}
         },
         "build": {
           "buildTransitive/net5.0/_._": {}
@@ -321,14 +285,10 @@
           "System.Security.Principal.Windows": "5.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {
-            "related": ".xml"
-          }
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
@@ -340,14 +300,10 @@
       "System.Security.Principal.Windows/5.0.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
+          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
@@ -927,31 +883,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kiril\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\tatat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj",
+      "projectUniqueName": "B:\\github\\PogTeam\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj",
-      "packagesPath": "C:\\Users\\kiril\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub Repos\\PogTeam\\Server\\obj\\",
+      "projectPath": "B:\\github\\PogTeam\\Server\\Server.csproj",
+      "packagesPath": "C:\\Users\\tatat\\.nuget\\packages\\",
+      "outputPath": "B:\\github\\PogTeam\\Server\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\kiril\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\tatat\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -995,7 +944,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
