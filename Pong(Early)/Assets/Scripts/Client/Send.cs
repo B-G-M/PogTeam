@@ -52,7 +52,7 @@ public class Send : MonoBehaviour
             Debug.Log($"Queue is empry: {ex}");
         }
         
-        string message = $"ch_side;";
+        string message = $"chSide;";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
         EnqueueCommand(() => { SendSide(); });
@@ -69,7 +69,7 @@ public class Send : MonoBehaviour
             Debug.Log($"Queue is empry: {ex}");
         }
         
-        string message = $"rdy_{id}_{ready};";
+        string message = $"rdy_{ready};";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
         EnqueueCommand(() => { SendReadyness(id, ready); });

@@ -41,7 +41,7 @@ public class Client : MonoBehaviour
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("192.168.1.9", 1457);
+            socket.Connect("10.102.242.220", 1457);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);
@@ -113,10 +113,24 @@ public class Client : MonoBehaviour
     {
         gameManager.GetComponent<GameManager_Script>().SetOtherPlayerStatus(Convert.ToBoolean(parametrs[1]));
     }
-
-    public void AcceptReadyness()
+    public void Accept_Ready()
     {
-        gameManager.GetComponent<GameManager_Script>().Acceptreadyness();
+        gameManager.GetComponent<GameManager_Script>().Accept_Ready();
+    }
+
+    public void Accept_NotReady()
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_NotReady();
+    }
+
+    public void Accept_Enemy_Ready()
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_Enemy_Ready();
+    }
+
+    public void Accept_Enemy_NotReady()
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_Enemy_NotReady();
     }
 //----------------------------------------------------------------
     

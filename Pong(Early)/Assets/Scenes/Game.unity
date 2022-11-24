@@ -2941,10 +2941,16 @@ MonoBehaviour:
   client: {fileID: 0}
   rightPlayer: {fileID: 1639638393}
   leftPlayer: {fileID: 21153120}
+  rightButtonText: {fileID: 496706313}
+  leftButtonText: {fileID: 1156661203}
+  rightImage: {fileID: 1916045368}
+  leftImage: {fileID: 953079421}
   name_right: {fileID: 642986474}
   name_left: {fileID: 1187014761}
   rightPlayerBtn: {fileID: 1041473712}
   leftPlayerBtn: {fileID: 880112638}
+  checkMark: {fileID: 21300000, guid: ec2edef3cdcdca0449f90841392325ec, type: 3}
+  cross: {fileID: 21300000, guid: 5417a2c81f12b974685c06b500a34613, type: 3}
 --- !u!1 &1513033948
 GameObject:
   m_ObjectHideFlags: 0

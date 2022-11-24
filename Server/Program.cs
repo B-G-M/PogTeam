@@ -176,8 +176,8 @@ namespace Server
 
 			private bool ChangeReady(string readyness)
 			{
-				if (readyness == "true" && !IsReady) IsReady = true;
-				else if (readyness == "false" && IsReady) IsReady = false;
+				if (readyness == "True" && !IsReady) IsReady = true;
+				else if (readyness == "False" && IsReady) IsReady = false;
 				return IsReady;
 			}
 			private bool CommandProcessing(string request)
@@ -203,7 +203,8 @@ namespace Server
 						if (AuthPlayer(requestPart[1], requestPart[2]))
 						{
 							if (AuthPlayer(requestPart[1], requestPart[2]))
-								ansver = "OK";
+								//ansver = "OK";
+								ansver = $"id_{id}";
 							else
 								ansver = "ERROR";
 						}
@@ -212,7 +213,6 @@ namespace Server
 						break;
 
 					case "chSide":
-
 						var temp = CheckSide();
 						ansver = "side_" + temp + "_" + _enemy.nickName;
 						break;

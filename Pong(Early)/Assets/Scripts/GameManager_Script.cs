@@ -14,6 +14,10 @@ public class GameManager_Script : MonoBehaviour
     [SerializeField] private GameObject client;
     [SerializeField] private GameObject rightPlayer;
     [SerializeField] private GameObject leftPlayer;
+    [SerializeField] private TMP_Text rightButtonText;
+    [SerializeField] private TMP_Text leftButtonText;
+    [SerializeField] private GameObject rightImage;
+    [SerializeField] private GameObject leftImage;
     private bool rightPlayer_status = false;
     private bool leftPlayer_status = false;
     private int? side;
@@ -21,6 +25,8 @@ public class GameManager_Script : MonoBehaviour
     [SerializeField] private TMP_Text name_left;
     [SerializeField] private GameObject rightPlayerBtn;
     [SerializeField] private GameObject leftPlayerBtn;
+    [SerializeField] private Sprite checkMark;
+    [SerializeField] private Sprite cross;
 
     private void Awake()
     {
@@ -155,15 +161,92 @@ public class GameManager_Script : MonoBehaviour
         }
     }
     
-    public void Acceptreadyness()
+    public void Accept_Ready()
     {
-        if(side == 0) RightPlayerStatus();
-        else LeftPlayerStatus();
+        switch (side)
+        {
+            case 0:
+                rightPlayer_status = true;
+                rightImage.GetComponent<Image>().sprite = checkMark;
+                rightButtonText.text = "Not Ready";
+                CheckPlayersStatus();
+                break;
+            case 1:
+                leftPlayer_status = true;
+                leftImage.GetComponent<Image>().sprite = checkMark;
+                leftButtonText.text = "Ready";
+                CheckPlayersStatus();
+                break;
+        }
+    }
+
+    public void Accept_NotReady()
+    {
+        switch (side)
+        {
+            case 0:
+                rightPlayer_status = false;
+                rightImage.GetComponent<Image>().sprite = cross;
+                rightButtonText.text = "Not Ready";
+                CheckPlayersStatus();
+                break;
+            case 1:
+                leftImage.GetComponent<Image>().sprite = cross;
+                leftButtonText.text = "Not Ready";
+                leftPlayer_status = false;
+                CheckPlayersStatus();
+                break;
+        }
+    }
+
+    public void Accept_Enemy_Ready()
+    {
+        switch (side)
+        {
+            case 0:
+                leftPlayer_status = true;
+                leftImage.GetComponent<Image>().sprite = checkMark;
+                CheckPlayersStatus();
+                break;
+            case 1:
+                rightPlayer_status = true;
+                rightImage.GetComponent<Image>().sprite = checkMark;
+                CheckPlayersStatus();
+                break;
+        }
+    }
+
+    public void Accept_Enemy_NotReady()
+    {
+        switch (side)
+        {
+            case 0:
+                leftPlayer_status = false;
+                leftImage.GetComponent<Image>().sprite = cross;
+                CheckPlayersStatus();
+                break;
+            case 1:
+                rightPlayer_status = true;
+                rightImage.GetComponent<Image>().sprite = cross;
+                CheckPlayersStatus();
+                break;
+        }
     }
 
     public void SendReadyness()
     {
-        if(side == 0) client.GetComponent<Client>().SendReadyness(rightPlayer_status);
-        else client.GetComponent<Client>().SendReadyness(leftPlayer_status);
+        if (side == 0)
+        {
+            client.GetComponent<Client>().SendReadyness(!rightPlayer_status);
+        }
+        else
+        {
+            
+            client.GetComponent<Client>().SendReadyness(!leftPlayer_status);
+        }
     }
+    
+    //Сервер отправляет Ready / Not ready
+    // На ready -> меняем на true
+    // На NotReady -> меняем на false
 }

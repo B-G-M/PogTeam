@@ -18,7 +18,11 @@ public class Recieve : MonoBehaviour
         id,
         rdy,
         side,
-        rdy_ok,
+        Ready,
+        NotReady,
+        changeRdy_Ready,
+        changeRdy_NotReady,
+        changeRdy,
         error
     }
 
@@ -52,15 +56,35 @@ public class Recieve : MonoBehaviour
             case Commands.side:
                 _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
                 break;
-            case Commands.rdy_ok:
-                _threadManager.ExecuteOnMainThread(() => { AcceptReadyness(); });
+            case Commands.Ready:
+                _threadManager.ExecuteOnMainThread(() => { Accept_Ready(); });
+                break;
+            case Commands.NotReady:
+                _threadManager.ExecuteOnMainThread(() => { Accept_NotReady(); });
+                break;
+            case Commands.changeRdy_Ready:
+                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
+                break;
+            case Commands.changeRdy_NotReady:
+                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
+                break;
+            case Commands.changeRdy:
+                switch (arguments[1])
+                {
+                    case "Ready":
+                        _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
+                        break;
+                    case "NotReady":
+                        _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
+                        break;
+                }
                 break;
             case Commands.error:
                 _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
                 break;
-            /*default:
+            default:
                 SendStatus($"error_{arguments[0]}");
-                break;*/
+                break;
         }
     }
     private void ThreadAction() 
@@ -96,10 +120,24 @@ public class Recieve : MonoBehaviour
         client.GetSide(parametrs);
         //testThread.Start();
     }
-
-    private static void AcceptReadyness()
+    private static void Accept_Ready()
     {
-        client.AcceptReadyness();
+        client.Accept_Ready();
+    }
+
+    private static void Accept_NotReady()
+    {
+        client.Accept_NotReady();
+    }
+
+    private static void Accept_Enemy_Ready()
+    {
+        client.Accept_Enemy_Ready();
+    }
+
+    private static void Accept_Enemy_NotReady()
+    {
+        client.Accept_Enemy_NotReady();
     }
 
     private static void ReSendLastCommand()

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PogTeam\\Server\\Server.csproj": {}
+    "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj": {}
   },
   "projects": {
-    "D:\\PogTeam\\Server\\Server.csproj": {
+    "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PogTeam\\Server\\Server.csproj",
+        "projectUniqueName": "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "D:\\PogTeam\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\bgm99\\.nuget\\packages\\",
-        "outputPath": "D:\\PogTeam\\Server\\obj\\",
+        "projectPath": "D:\\GitHub Repos\\PogTeam\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\kiril\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub Repos\\PogTeam\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bgm99\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kiril\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
