@@ -91,4 +91,21 @@ public class Send : MonoBehaviour
         byte[] requestData = Encoding.UTF8.GetBytes(status);
         socket.Send(requestData);
     }
+
+    public void Send_Command_On_Move_Up()
+    {
+        try
+        {
+            lastExecutedCommand.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Queue is empry: {ex}");
+        }
+        
+        string message = $"moveUp;";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+        EnqueueCommand(() => { Send_Command_On_Move_Up(); });
+    }
 }

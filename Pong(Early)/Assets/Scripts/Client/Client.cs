@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ public class Client : MonoBehaviour
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("10.102.242.220", 1457);
+            socket.Connect("192.168.1.9", 1457);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);
@@ -93,6 +94,11 @@ public class Client : MonoBehaviour
     {
         send.ResendLastCommand();
     }
+
+    public void MoveUp()
+    {
+        send.Send_Command_On_Move_Up();
+    }
 //---------------------------------------------------------------    
 
 
@@ -131,6 +137,11 @@ public class Client : MonoBehaviour
     public void Accept_Enemy_NotReady()
     {
         gameManager.GetComponent<GameManager_Script>().Accept_Enemy_NotReady();
+    }
+
+    public void Move_Up(float position, float dir, float speed)
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Up(position, dir, speed);
     }
 //----------------------------------------------------------------
     

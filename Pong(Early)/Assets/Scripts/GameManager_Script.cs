@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -174,7 +175,7 @@ public class GameManager_Script : MonoBehaviour
             case 1:
                 leftPlayer_status = true;
                 leftImage.GetComponent<Image>().sprite = checkMark;
-                leftButtonText.text = "Ready";
+                leftButtonText.text = "Not Ready";
                 CheckPlayersStatus();
                 break;
         }
@@ -226,7 +227,7 @@ public class GameManager_Script : MonoBehaviour
                 CheckPlayersStatus();
                 break;
             case 1:
-                rightPlayer_status = true;
+                rightPlayer_status = false;
                 rightImage.GetComponent<Image>().sprite = cross;
                 CheckPlayersStatus();
                 break;
@@ -243,6 +244,24 @@ public class GameManager_Script : MonoBehaviour
         {
             
             client.GetComponent<Client>().SendReadyness(!leftPlayer_status);
+        }
+    }
+
+    public void Send_Request_For_Move_Up()
+    {
+        client.GetComponent<Client>().MoveUp();
+    }
+
+    public void Accept_Request_For_Move_Up(float position, float dir, float speed)
+    {
+        switch (side)
+        {
+            case 0:
+                rightPlayer.GetComponent<Player_Script>().Move(position, dir, speed);
+                break;
+            case 1:
+                leftPlayer.GetComponent<Player_Script>().Move(position, dir, speed);
+                break;
         }
     }
     

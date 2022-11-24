@@ -23,7 +23,8 @@ public class Recieve : MonoBehaviour
         changeRdy_Ready,
         changeRdy_NotReady,
         changeRdy,
-        error
+        error,
+        moveUp
     }
 
     private void Awake()
@@ -78,6 +79,9 @@ public class Recieve : MonoBehaviour
                         _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
                         break;
                 }
+                break;
+            case Commands.moveUp:
+                _threadManager.ExecuteOnMainThread(() => { Move_Up(arguments); });
                 break;
             case Commands.error:
                 _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
@@ -148,5 +152,10 @@ public class Recieve : MonoBehaviour
     private static void SendStatus(string status)
     {
         client.SendSatus(status);
+    }
+
+    private static void Move_Up(string[] param)
+    {
+        client.Move_Up(Convert.ToSingle(param[1]), Convert.ToSingle(param[2]), Convert.ToSingle(param[3]));
     }
 }
