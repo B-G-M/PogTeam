@@ -59,6 +59,10 @@ namespace Server
 
 			public void Start()
 			{
+				while (!GameRdy())
+				{
+
+				}
 				string? msg = "";
 				player1.Enemy = player2;
                 player2.Enemy = player1;
@@ -129,23 +133,30 @@ namespace Server
 
 			public bool SendMsg(string msg)
 			{
+
 				byte[] ansArr = Encoding.UTF8.GetBytes(msg);
 				socket.Send(ansArr);
+				Console.WriteLine("Отправлено игроку {0}: {1}", id, msg);
 				return true;//прикрути проверку на отправку
 			}
 
 			public void ReciveMsg()
 			{
+				bool stop = true;
 				while(true)
 				{
 					byte[] msgArr = new byte[1024];
 					socket.Receive(msgArr);
 					string msg = Encoding.UTF8.GetString(msgArr);
 					Console.WriteLine("Получено от игрока {0}: {1}", id, msg);
-
+					msg = msg.Replace("\0", string.Empty);
 					foreach (var req in msg.Split(";"))
 					{
-						CommandProcessing(req);
+						if (req == "")
+							break;
+						stop = CommandProcessing(req);
+						if (!stop)
+							return;
 					}
 				}
 				
@@ -169,41 +180,69 @@ namespace Server
 				else if (readyness == "false" && IsReady) IsReady = false;
 				return IsReady;
 			}
-			private void CommandProcessing(string request)
+			private bool CommandProcessing(string request)
 			{
 				string[] requestPart = request.Split("_");
+				string ansver = "";
+				bool flag = true;
 
-                if (requestPart[1] == "ERROR")
-                {
+				if (requestPart.Length > 1 && requestPart[1] == "ERROR")
+				{
 					_enemy.socket.Shutdown(0);
 					_enemy.socket.Close();
 					socket.Shutdown(0);
 					socket.Close();
-                }
+				}
+				if (requestPart.Length > 1 && requestPart[1] == "OK")
+					return true;
+
 				switch (requestPart[0])
 				{
 					case "auth":
+
 						if (AuthPlayer(requestPart[1], requestPart[2]))
 						{
-							SendMsg("OK");
-							Console.WriteLine("Отправлено игроку {0}: {1}", id, "id " + AuthPlayer(requestPart[1], requestPart[2]));
+							if (AuthPlayer(requestPart[1], requestPart[2]))
+								ansver = "OK";
+							else
+								ansver = "ERROR";
 						}
 						else SendMsg("ERROR");
+						flag = false;
+						break;
 
+					case "chSide":
+
+						var temp = CheckSide();
+						ansver = "side_" + temp + "_" + _enemy.nickName;
 						break;
-					case "ch_side":
-						SendMsg("side_" + CheckSide() + "_" + _enemy.nickName);
-						break;
+
 					case "rdy":
-						if (ChangeReady(requestPart[2])) SendMsg("Ready");
-						else SendMsg("Not Ready");
+
+						if (ChangeReady(requestPart[1]))
+						{
+							ansver = "Ready";
+							_enemy.SendMsg("changeRdy_Ready;");
+						}
+						else
+						{
+							ansver = "NotReady";
+							_enemy.SendMsg("changeRdy_NotReady;");
+						}
 						break;
-					case "   ":
-						Console.WriteLine();
-						break;
+
 					default:
+
+						ansver = "ERROR";
+
+						_enemy.socket.Shutdown(0);
+						_enemy.socket.Close();
+						socket.Shutdown(0);
+						socket.Close();
 						break;
 				}
+				SendMsg(ansver + ";");
+				return flag;
 			}
 		}
 
