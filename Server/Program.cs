@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Server
 {
@@ -171,7 +172,8 @@ namespace Server
 			{
 				this.nickName = login;
 				this.password = password;
-				return true;
+				
+				return AuntificationMethods.Login(login,password);
 			}
 
 			private string CheckSide()
@@ -249,13 +251,11 @@ namespace Server
 
 						if (AuthPlayer(requestPart[1], requestPart[2]))
 						{
-							if (AuthPlayer(requestPart[1], requestPart[2]))
-								//ansver = "OK";
+							//ansver = "OK";
 								ansver = $"id_{id}";
-							else
-								ansver = "ERROR";
+							
 						}
-						else SendMsg("ERROR");
+						else SendMsg("ERROR_AUTH;");
 						flag = false;
 						break;
 
@@ -307,8 +307,23 @@ namespace Server
 
 		static void Main(string[] args)
 		{
+			using (ApplicationContext db = new ApplicationContext())
+			{
+
+				/*User user1 = new User { Email = "Tom@mail.com", Password = "33",WinGames= 0 };
+				User user2 = new User { Email = "Jaff@mail.com", Password = "44", WinGames = 5 };
+
+				db.Users.AddRange(user1, user2);
+				db.SaveChanges();
+				*/
+
+             
+			}
+			
 			Server server = new Server();
 			server.Start();
+			
+			
 
 		}
 	}
