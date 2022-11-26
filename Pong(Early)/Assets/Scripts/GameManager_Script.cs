@@ -80,9 +80,11 @@ public class GameManager_Script : MonoBehaviour
         {
             case 0:
                 rightPlayer.GetComponent<Player_Script>().StartListenForKeys();
+                rightPlayer.GetComponent<Player_Script>().SetX_Pos(11.2f);
                 break;
             case 1:
                 leftPlayer.GetComponent<Player_Script>().StartListenForKeys();
+                leftPlayer.GetComponent<Player_Script>().SetX_Pos(-11.2f);
                 break;
         }
     }
@@ -290,6 +292,19 @@ public class GameManager_Script : MonoBehaviour
                 break;
             case 1:
                 leftPlayer.GetComponent<Player_Script>().Move(position, target, speed);
+                break;
+        }
+    }
+
+    public void Accept_Request_For_Move_Enemey(float position, float target, float speed)
+    {
+        switch (side)
+        {
+            case 0:
+                leftPlayer.GetComponent<Player_Script>().Move(position, target, speed);
+                break;
+            case 1:
+                rightPlayer.GetComponent<Player_Script>().Move(position, target, speed);
                 break;
         }
     }

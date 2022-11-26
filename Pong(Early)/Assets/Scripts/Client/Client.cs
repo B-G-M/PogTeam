@@ -154,6 +154,11 @@ public class Client : MonoBehaviour
         gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Down(position, target, speed);
     }
 
+    public void MoveEnemy(float position, float target, float speed)
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Enemey(position, target, speed);
+    }
+
     public void WrongData()
     {
         GameObject.Find("Menu").GetComponent<MainMenu>().WrongAuth();

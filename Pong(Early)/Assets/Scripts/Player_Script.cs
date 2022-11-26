@@ -8,9 +8,16 @@ public class Player_Script : MonoBehaviour
     [SerializeField] private float speedDelete = 5f;
     [SerializeField] private GameObject gM;
     [SerializeField] private GameManager_Script gameManager;
+    private float _x ;
     private void Awake()
     {
         gameManager = gM.GetComponent<GameManager_Script>();
+        _x = gameObject.transform.position.x;
+    }
+
+    public void SetX_Pos(float pos)
+    {
+        //_x = pos;
     }
 
     public void StartListenForKeys()
@@ -24,9 +31,9 @@ public class Player_Script : MonoBehaviour
     }
     public void Move(float position, float target, float speed)
     {
-        Vector3 pos = new Vector3(11, position);
+        Vector3 currentPos = new Vector3(_x,position);
         Vector3 direction = new Vector3(0, target);
-        transform.position = Vector3.MoveTowards(pos, direction, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(currentPos, direction, speed * Time.deltaTime);
     }
 
     IEnumerator ListenForKeys()
@@ -37,16 +44,15 @@ public class Player_Script : MonoBehaviour
             {
                 if (Input.GetAxis("Vertical") <= 0)
                 {
-                    gameManager.Send_Request_For_Move_Up();
-                    yield return new WaitForSeconds(0.5f);
+                    gameManager.Send_Request_For_Move_Down();
                 }
 
                 if (Input.GetAxis("Vertical") >= 0)
                 {
-                    gameManager.Send_Request_For_Move_Down();
-                    yield return new WaitForSeconds(0.5f);
+                    gameManager.Send_Request_For_Move_Up();
                 }
             }
+            yield return new WaitForSeconds(0.07f);
         }
     }
     

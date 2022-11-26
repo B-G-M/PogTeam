@@ -26,7 +26,9 @@ public class Recieve : MonoBehaviour
         ERROR,
         moveUp,
         moveDown,
-        auth
+        auth,
+        sMoveUp,
+        sMoveDown
     }
 
     private enum Status
@@ -142,6 +144,12 @@ public class Recieve : MonoBehaviour
             case Commands.moveDown:
                 _threadManager.ExecuteOnMainThread(() => { Move_Down(arguments); });
                 break;
+            case Commands.sMoveUp:
+                _threadManager.ExecuteOnMainThread(()=>{MoveEnemy(arguments);});
+                break;
+            case Commands.sMoveDown:
+                _threadManager.ExecuteOnMainThread(()=>{MoveEnemy(arguments);});
+                break;
         }
     }
     private void ThreadAction() 
@@ -217,8 +225,15 @@ public class Recieve : MonoBehaviour
         client.Move_Down(Convert.ToSingle(param[1]), Convert.ToSingle(param[2]), Convert.ToSingle(param[3]));
     }
 
+    private static void MoveEnemy(string[] param)
+    {
+        client.MoveEnemy(Convert.ToSingle(param[1]), Convert.ToSingle(param[2]), Convert.ToSingle(param[3]));
+    }
+    
+
     private static void WrongAuth()
     {
         client.WrongData();
     }
+    
 }
