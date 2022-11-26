@@ -42,7 +42,7 @@ public class Client : MonoBehaviour
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("10.102.245.68", 1457);
+            socket.Connect("26.174.189.81", 1457);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);

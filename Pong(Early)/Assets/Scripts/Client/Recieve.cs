@@ -57,114 +57,90 @@ public class Recieve : MonoBehaviour
         switch ((Commands)Enum.Parse(typeof(Commands), arguments[0]))
         {
             case Commands.id:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { GetID(arguments); });
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread(() => { GetID(arguments); });
                 break;
             case Commands.auth:
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        _threadManager.ExecuteOnMainThread(() => { WrongAuth(); });
+                        break;
+                }
                 break;
             case Commands.rdy:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread((() => { Readyness(arguments); }));
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread((() => { Readyness(arguments); }));
                 break;
             case Commands.side:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
                 break;
             case Commands.Ready:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { Accept_Ready(); });
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread(() => { Accept_Ready(); });
                 break;
             case Commands.NotReady:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { Accept_NotReady(); });
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread(() => { Accept_NotReady(); });
                 break;
             case Commands.changeRdy_Ready:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
-                        break;
+                    Debug.Log(arguments);
+                    break;
                 }
+                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
                 break;
             case Commands.changeRdy_NotReady:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
-                    case Status.Error:
+                    Debug.Log(arguments);
+                    break;
+                }
+                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
+                break;
+            case Commands.changeRdy:
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
+                {
+                    Debug.Log(arguments);
+                    break;
+                }
+                switch (arguments[1])
+                {
+                    case "Ready":
+                        _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
                         break;
-                    default:
+                    case "NotReady":
                         _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
                         break;
                 }
                 break;
-            case Commands.changeRdy:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
-                {
-                    case Status.Error:
-                        break;
-                    default:
-                        switch (arguments[1])
-                        {
-                            case "Ready":
-                                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
-                                break;
-                            case "NotReady":
-                                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
-                                break;
-                        }
-                        break;
-                }
-                break;
             case Commands.moveUp:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
-                {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { Move_Up(arguments); });
-                        break;
-                }
+                _threadManager.ExecuteOnMainThread(() => { Move_Up(arguments); });
                 break;
             case Commands.moveDown:
-                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
-                {
-                    case Status.Error:
-                        break;
-                    default:
-                        _threadManager.ExecuteOnMainThread(() => { Move_Down(arguments); });
-                        break;
-                }
+                _threadManager.ExecuteOnMainThread(() => { Move_Down(arguments); });
                 break;
         }
     }
