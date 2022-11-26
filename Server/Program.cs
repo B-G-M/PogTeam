@@ -129,11 +129,11 @@ namespace Server
 			public bool IsReady = false;
 			
 			public float stickY;
-			private float StepSize = 0.5f;
+			private float StepSize = 0.2f;
 			public int side;
-			private float speed = 5.0f;
-			private float UpperRange = 4.62f;
-			private float LowerRange = -4.564f;
+			private float speed = 20.0f;
+			private float UpperRange = 4.0f;
+			private float LowerRange = -3.9f;
 			
 			public Socket socket;
 
@@ -173,7 +173,8 @@ namespace Server
 				this.nickName = login;
 				this.password = password;
 				
-				return AuntificationMethods.Login(login,password);
+				//return AuntificationMethods.Login(login,password);
+				return true;
 			}
 
 			private string CheckSide()
@@ -195,16 +196,11 @@ namespace Server
 				comand += stickY.ToString() + "_";
 				
 				if (stickY + StepSize < UpperRange)
-				{
-					comand += StepSize.ToString();
 					stickY += StepSize;
-				}
 				else
-				{
-					comand += (UpperRange - stickY).ToString();
 					stickY = UpperRange;
-				}
 
+				comand += stickY.ToString();
 				comand += "_" + speed.ToString();
 
 				return comand;
@@ -212,19 +208,14 @@ namespace Server
 			private string MoveDownCalculating()
 			{
 				string comand = "";
-				comand += stickY.ToString() + "_-";
+				comand += stickY.ToString() + "_";
 
 				if (stickY - StepSize > LowerRange)
-				{
-					comand += StepSize.ToString();
 					stickY -= StepSize;
-				}
 				else
-				{
-					comand += (LowerRange - stickY).ToString();
 					stickY = LowerRange;
-				}
 
+				comand += stickY.ToString();
 				comand += "_" + speed.ToString();
 
 				return comand;
@@ -307,18 +298,14 @@ namespace Server
 
 		static void Main(string[] args)
 		{
-			using (ApplicationContext db = new ApplicationContext())
+			/*using (ApplicationContext db = new ApplicationContext())
 			{
-				/*
 				User user1 = new User { Email = "Kirill@mail.com", Password = "55",WinGames= 0 };
 				User user2 = new User { Email = "Kolya@mail.com", Password = "66", WinGames = 5 };
 
 				db.Users.AddRange(user1, user2);
 				db.SaveChanges();
-				*/
-
-             
-			}
+			}*/
 			
 			Server server = new Server();
 			server.Start();
