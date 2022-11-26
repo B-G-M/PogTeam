@@ -23,7 +23,6 @@ public class Recieve : MonoBehaviour
         changeRdy_Ready,
         changeRdy_NotReady,
         changeRdy,
-        ERROR,
         moveUp,
         moveDown,
         auth,

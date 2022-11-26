@@ -296,7 +296,7 @@ public class GameManager_Script : MonoBehaviour
         }
     }
 
-    public void Accept_Request_For_Move_Enemey(float position, float target, float speed)
+    public void Accept_Request_For_Move_Enemy(float position, float target, float speed)
     {
         switch (side)
         {

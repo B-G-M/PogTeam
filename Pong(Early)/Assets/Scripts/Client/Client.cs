@@ -156,7 +156,7 @@ public class Client : MonoBehaviour
 
     public void MoveEnemy(float position, float target, float speed)
     {
-        gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Enemey(position, target, speed);
+        gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Enemy(position, target, speed);
     }
 
     public void WrongData()
