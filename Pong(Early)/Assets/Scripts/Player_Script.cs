@@ -12,26 +12,43 @@ public class Player_Script : MonoBehaviour
     {
         gameManager = gM.GetComponent<GameManager_Script>();
     }
-    private void Send_request_For_Move()
+
+    public void StartListenForKeys()
     {
-        gameManager.Send_Request_For_Move_Up();
-        //Vector3 dir = transform.up * Input.GetAxis("Vertical");
-        //transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speedDelete * Time.deltaTime);
+        StartCoroutine(ListenForKeys());
     }
 
-    public void Move(float position, float dir, float speed)
+    public void EndListenForKey()
+    {
+        StopCoroutine(ListenForKeys());
+    }
+    public void Move(float position, float target, float speed)
     {
         Vector3 pos = new Vector3(11, position);
-        Vector3 direction = new Vector3(0, dir);
-        transform.position = Vector3.MoveTowards(pos, pos + direction, speed * Time.deltaTime);
+        Vector3 direction = new Vector3(0, target);
+        transform.position = Vector3.MoveTowards(pos, direction, speed * Time.deltaTime);
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator ListenForKeys()
     {
-        if(Input.GetButton("Vertical"))
+        while (true)
         {
-            Send_request_For_Move();
+            if (Input.GetButton("Vertical"))
+            {
+                if (Input.GetAxis("Vertical") <= 0)
+                {
+                    gameManager.Send_Request_For_Move_Up();
+                    yield return new WaitForSeconds(0.5f);
+                }
+
+                if (Input.GetAxis("Vertical") >= 0)
+                {
+                    gameManager.Send_Request_For_Move_Down();
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
         }
     }
+    
+    
 }

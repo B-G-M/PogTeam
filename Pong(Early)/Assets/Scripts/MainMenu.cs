@@ -38,4 +38,12 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void WrongAuth()
+    {
+        loadAnim.SetActive(false);
+        connectButton.enabled = true;
+        warningText.enabled = false;
+        
+    }
 }

@@ -23,8 +23,16 @@ public class Recieve : MonoBehaviour
         changeRdy_Ready,
         changeRdy_NotReady,
         changeRdy,
-        error,
-        moveUp
+        ERROR,
+        moveUp,
+        moveDown,
+        auth
+    }
+
+    private enum Status
+    {
+        Ok,
+        Error
     }
 
     private void Awake()
@@ -49,45 +57,114 @@ public class Recieve : MonoBehaviour
         switch ((Commands)Enum.Parse(typeof(Commands), arguments[0]))
         {
             case Commands.id:
-                _threadManager.ExecuteOnMainThread(() => { GetID(arguments); });
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread(() => { GetID(arguments); });
+                        break;
+                }
+                break;
+            case Commands.auth:
                 break;
             case Commands.rdy:
-                _threadManager.ExecuteOnMainThread((() => { Readyness(arguments); }));
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread((() => { Readyness(arguments); }));
+                        break;
+                }
                 break;
             case Commands.side:
-                _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread((() => { GetSide(arguments); }));
+                        break;
+                }
                 break;
             case Commands.Ready:
-                _threadManager.ExecuteOnMainThread(() => { Accept_Ready(); });
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread(() => { Accept_Ready(); });
+                        break;
+                }
                 break;
             case Commands.NotReady:
-                _threadManager.ExecuteOnMainThread(() => { Accept_NotReady(); });
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread(() => { Accept_NotReady(); });
+                        break;
+                }
                 break;
             case Commands.changeRdy_Ready:
-                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
-                break;
-            case Commands.changeRdy_NotReady:
-                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
-                break;
-            case Commands.changeRdy:
-                switch (arguments[1])
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
                 {
-                    case "Ready":
+                    case Status.Error:
+                        break;
+                    default:
                         _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
                         break;
-                    case "NotReady":
+                }
+                break;
+            case Commands.changeRdy_NotReady:
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
                         _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
                         break;
                 }
                 break;
+            case Commands.changeRdy:
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        switch (arguments[1])
+                        {
+                            case "Ready":
+                                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_Ready(); });
+                                break;
+                            case "NotReady":
+                                _threadManager.ExecuteOnMainThread(() => { Accept_Enemy_NotReady(); });
+                                break;
+                        }
+                        break;
+                }
+                break;
             case Commands.moveUp:
-                _threadManager.ExecuteOnMainThread(() => { Move_Up(arguments); });
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread(() => { Move_Up(arguments); });
+                        break;
+                }
                 break;
-            case Commands.error:
-                _threadManager.ExecuteOnMainThread(() => { ReSendLastCommand(); });
-                break;
-            default:
-                SendStatus($"error_{arguments[0]}");
+            case Commands.moveDown:
+                switch ((Status)Enum.Parse(typeof(Status), arguments[1]))
+                {
+                    case Status.Error:
+                        break;
+                    default:
+                        _threadManager.ExecuteOnMainThread(() => { Move_Down(arguments); });
+                        break;
+                }
                 break;
         }
     }
@@ -157,5 +234,15 @@ public class Recieve : MonoBehaviour
     private static void Move_Up(string[] param)
     {
         client.Move_Up(Convert.ToSingle(param[1]), Convert.ToSingle(param[2]), Convert.ToSingle(param[3]));
+    }
+
+    private static void Move_Down(string[] param)
+    {
+        client.Move_Down(Convert.ToSingle(param[1]), Convert.ToSingle(param[2]), Convert.ToSingle(param[3]));
+    }
+
+    private static void WrongAuth()
+    {
+        client.WrongData();
     }
 }

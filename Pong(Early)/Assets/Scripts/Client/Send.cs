@@ -94,18 +94,35 @@ public class Send : MonoBehaviour
 
     public void Send_Command_On_Move_Up()
     {
-        try
-        {
-            lastExecutedCommand.Dequeue();
-        }
-        catch (Exception ex)
-        {
-            Debug.Log($"Queue is empry: {ex}");
-        }
+        // try
+        // {
+        //     lastExecutedCommand.Dequeue();
+        // }
+        // catch (Exception ex)
+        // {
+        //     //Debug.Log($"Queue is empry: {ex}");
+        // }
         
         string message = $"moveUp;";
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
-        EnqueueCommand(() => { Send_Command_On_Move_Up(); });
+        //EnqueueCommand(() => { Send_Command_On_Move_Up(); });
+    }
+
+    public void Send_Command_On_Move_Down()
+    {
+        // try
+        // {
+        //     lastExecutedCommand.Dequeue();
+        // }
+        // catch (Exception ex)
+        // {
+        //     //Debug.Log($"Queue is empry: {ex}");
+        // }
+        
+        string message = $"moveDown;";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+        //EnqueueCommand(() => { Send_Command_On_Move_Up(); });
     }
 }

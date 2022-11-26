@@ -28,11 +28,13 @@ public class GameManager_Script : MonoBehaviour
     [SerializeField] private GameObject leftPlayerBtn;
     [SerializeField] private Sprite checkMark;
     [SerializeField] private Sprite cross;
+    private Client clientScript;
 
     private void Awake()
     {
         client = GameObject.Find("TCP_Client");
         client.GetComponent<Client>().SetGameManager(gameObject);
+        clientScript = client.GetComponent<Client>();
         WaitingStage_Off();
         ReadyStage_On();
         client.GetComponent<Client>().RequestSide();
@@ -74,6 +76,15 @@ public class GameManager_Script : MonoBehaviour
         brackets.GetComponent<CanvasGroup>().alpha = 1f;
         brackets.GetComponent<CanvasGroup>().interactable = true;
         ReadyStage_Off();
+        switch (side)
+        {
+            case 0:
+                rightPlayer.GetComponent<Player_Script>().StartListenForKeys();
+                break;
+            case 1:
+                leftPlayer.GetComponent<Player_Script>().StartListenForKeys();
+                break;
+        }
     }
     
     private void CheckPlayersStatus()
@@ -249,7 +260,12 @@ public class GameManager_Script : MonoBehaviour
 
     public void Send_Request_For_Move_Up()
     {
-        client.GetComponent<Client>().MoveUp();
+        clientScript.MoveUp();
+    }
+
+    public void Send_Request_For_Move_Down()
+    {
+        clientScript.MoveDown();
     }
 
     public void Accept_Request_For_Move_Up(float position, float dir, float speed)
@@ -264,8 +280,17 @@ public class GameManager_Script : MonoBehaviour
                 break;
         }
     }
-    
-    //Сервер отправляет Ready / Not ready
-    // На ready -> меняем на true
-    // На NotReady -> меняем на false
+
+    public void Accept_Request_For_Move_Down(float position, float target, float speed)
+    {
+        switch (side)
+        {
+            case 0:
+                rightPlayer.GetComponent<Player_Script>().Move(position, target, speed);
+                break;
+            case 1:
+                leftPlayer.GetComponent<Player_Script>().Move(position, target, speed);
+                break;
+        }
+    }
 }

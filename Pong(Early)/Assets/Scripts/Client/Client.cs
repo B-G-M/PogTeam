@@ -42,7 +42,7 @@ public class Client : MonoBehaviour
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("192.168.1.9", 1457);
+            socket.Connect("10.102.245.68", 1457);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);
@@ -99,6 +99,11 @@ public class Client : MonoBehaviour
     {
         send.Send_Command_On_Move_Up();
     }
+
+    public void MoveDown()
+    {
+        send.Send_Command_On_Move_Down();
+    }
 //---------------------------------------------------------------    
 
 
@@ -142,6 +147,16 @@ public class Client : MonoBehaviour
     public void Move_Up(float position, float dir, float speed)
     {
         gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Up(position, dir, speed);
+    }
+
+    public void Move_Down(float position, float target, float speed)
+    {
+        gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Down(position, target, speed);
+    }
+
+    public void WrongData()
+    {
+        GameObject.Find("Menu").GetComponent<MainMenu>().WrongAuth();
     }
 //----------------------------------------------------------------
     
