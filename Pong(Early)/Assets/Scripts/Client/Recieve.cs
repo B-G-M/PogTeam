@@ -12,7 +12,9 @@ public class Recieve : MonoBehaviour
     [SerializeField] private static ThreadManager _threadManager;
     private static Socket socket;
     private static Thread testThread = null;
-    
+    private byte[] waitBuffer = null;
+    private bool _isFilled;
+
     private enum Commands
     {
         id,
@@ -27,7 +29,13 @@ public class Recieve : MonoBehaviour
         moveDown,
         auth,
         sMoveUp,
-        sMoveDown
+        sMoveDown,
+        bCord,
+        Leaders,
+        scored,
+        gotScored,
+        EndGame,
+        ballDir
     }
 
     private enum Status
@@ -149,15 +157,53 @@ public class Recieve : MonoBehaviour
             case Commands.sMoveDown:
                 _threadManager.ExecuteOnMainThread(()=>{MoveEnemy(arguments);});
                 break;
+            case Commands.bCord:
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
+                {
+                    Debug.Log(arguments);
+                    break;
+                }
+                _threadManager.ExecuteOnMainThread(() =>
+                {
+                    SetBallPos(Convert.ToSingle(arguments[1]), Convert.ToSingle(arguments[2]));
+                });
+                break;
+            case Commands.Leaders:
+                if (arguments.Length > 1 && arguments[1] == "ERROR")
+                {
+                    Debug.Log(arguments);
+                    break;
+                }
+                _threadManager.ExecuteOnMainThread(() => FormLeaderList(arguments));
+                break;
+            case Commands.scored:
+                _threadManager.ExecuteOnMainThread(()=> Scored(arguments));
+                break;
+            case Commands.gotScored:
+                _threadManager.ExecuteOnMainThread(()=> GotScored(arguments));
+                break;
+            case Commands.ballDir:
+                _threadManager.ExecuteOnMainThread(()=> ChangeBallDirection(arguments));
+                break;
+            case Commands.EndGame:
+                _threadManager.ExecuteOnMainThread(()=> ReceiveEndGame(arguments[1]));
+                break;
         }
     }
     private void ThreadAction() 
     {
         while (true)
         {
-            byte[] bytes = new byte[1024];
+            byte[] bytes = _isFilled ? CreateNewBuffer() : waitBuffer;
             int bytesRec = socket.Receive(bytes);
             String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            if (!res.EndsWith(";"))
+            {
+                waitBuffer = bytes;
+                _isFilled = false;
+                break;
+            }
+            _isFilled = true;
             String[] commands = res.Split(";");
             for (int i = 0; i < commands.Length - 1; i++)
             {
@@ -166,6 +212,8 @@ public class Recieve : MonoBehaviour
             }
         }
     }
+
+    private byte[] CreateNewBuffer() => new byte[1024];
     private static void GetID(string[] parametrs)
     {
         client.GetId(parametrs);
@@ -233,6 +281,35 @@ public class Recieve : MonoBehaviour
     private static void WrongAuth()
     {
         client.WrongData();
+    }
+
+    private static void SetBallPos(float xPos, float yPos)
+    {
+        client.SetBallPos(xPos, yPos);
+    }
+
+    private static void FormLeaderList(string[] param)
+    {
+        client.FormLeaderList(param);
+    }
+
+    private static void Scored(string[] arguments)
+    {
+        client.Scored(arguments);
+    }
+
+    private static void GotScored(string[] arguments)
+    {
+        client.GotScored(arguments);
+    }
+    private static void ChangeBallDirection(string[] arguments)
+    {
+        client.ChangeBallDirection(arguments);
+    }
+
+    private static void ReceiveEndGame(string message)
+    {
+        client.ReceiveEndGame(message);
     }
     
 }

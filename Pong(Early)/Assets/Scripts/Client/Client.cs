@@ -63,6 +63,7 @@ public class Client : MonoBehaviour
         if (socket.Connected)
         {
             socket.Close();
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -103,6 +104,16 @@ public class Client : MonoBehaviour
     public void MoveDown()
     {
         send.Send_Command_On_Move_Down();
+    }
+
+    public void GameIsStart()
+    {
+        send.SendGameIsStart();
+    }
+
+    public void LeaderList()
+    {
+        send.LeaderList();
     }
 //---------------------------------------------------------------    
 
@@ -159,9 +170,38 @@ public class Client : MonoBehaviour
         gameManager.GetComponent<GameManager_Script>().Accept_Request_For_Move_Enemy(position, target, speed);
     }
 
+    public void SetBallPos(float x, float y)
+    {
+        gameManager.GetComponent<GameManager_Script>().SetBallPos(x, y);
+    }
     public void WrongData()
     {
         GameObject.Find("Menu").GetComponent<MainMenu>().WrongAuth();
+    }
+
+    public void FormLeaderList(string[] arguments)
+    {
+        gameManager.GetComponent<GameManager_Script>().FormLeaderList(arguments);
+    }
+
+    public void Scored(string[] arguments)
+    {
+        gameManager.GetComponent<GameManager_Script>().Scored(arguments);
+    }
+
+    public void GotScored(string[] arguments)
+    {
+        gameManager.GetComponent<GameManager_Script>().GotScored(arguments);
+    }
+
+    public void ChangeBallDirection(string[] arguments)
+    {
+        gameManager.GetComponent<GameManager_Script>().ChangeBallDirection(arguments);
+    }
+
+    public void ReceiveEndGame(string message)
+    {
+        gameManager.GetComponent<GameManager_Script>().ReceiveEndGameMessage(message);
     }
 //----------------------------------------------------------------
     

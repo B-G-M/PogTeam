@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager_Script : MonoBehaviour
 {
+    [SerializeField] private GameObject ball;
     [SerializeField] private GameObject waitingMenu;
-    [SerializeField] private GameObject brackets;
+    [SerializeField] private GameObject gameStage;
     [SerializeField] private GameObject readyStage;
     [SerializeField] private GameObject backCount;
     [SerializeField] private GameObject client;
@@ -19,6 +22,7 @@ public class GameManager_Script : MonoBehaviour
     [SerializeField] private TMP_Text leftButtonText;
     [SerializeField] private GameObject rightImage;
     [SerializeField] private GameObject leftImage;
+    [SerializeField] private GameObject endGame;
     private bool rightPlayer_status = false;
     private bool leftPlayer_status = false;
     private int? side;
@@ -29,17 +33,24 @@ public class GameManager_Script : MonoBehaviour
     [SerializeField] private Sprite checkMark;
     [SerializeField] private Sprite cross;
     private Client clientScript;
+    private BallScript _ballScript;
+    private ContentScript _content;
 
     private void Awake()
     {
+        ball.SetActive(false);
         client = GameObject.Find("TCP_Client");
         client.GetComponent<Client>().SetGameManager(gameObject);
         clientScript = client.GetComponent<Client>();
         WaitingStage_Off();
         ReadyStage_On();
         client.GetComponent<Client>().RequestSide();
-        brackets.GetComponent<CanvasGroup>().alpha = 0f;
-        brackets.GetComponent<CanvasGroup>().interactable = false;
+        // brackets.GetComponent<CanvasGroup>().alpha = 0f;
+        // brackets.GetComponent<CanvasGroup>().interactable = false;
+        gameStage.SetActive(false);
+        _ballScript = ball.GetComponent<BallScript>();
+        _content = GetComponent<ContentScript>();
+        endGame.SetActive(false);
     }
     
     private void WaitingStage_On()
@@ -73,20 +84,28 @@ public class GameManager_Script : MonoBehaviour
 
     public void StartGame()
     {
-        brackets.GetComponent<CanvasGroup>().alpha = 1f;
-        brackets.GetComponent<CanvasGroup>().interactable = true;
+        // brackets.GetComponent<CanvasGroup>().alpha = 1f;
+        // brackets.GetComponent<CanvasGroup>().interactable = true;
+        gameStage.SetActive(true);
         ReadyStage_Off();
         switch (side)
         {
             case 0:
                 rightPlayer.GetComponent<Player_Script>().StartListenForKeys();
-                rightPlayer.GetComponent<Player_Script>().SetX_Pos(11.2f);
+                //rightPlayer.GetComponent<Player_Script>().SetX_Pos(11.2f);
                 break;
             case 1:
                 leftPlayer.GetComponent<Player_Script>().StartListenForKeys();
-                leftPlayer.GetComponent<Player_Script>().SetX_Pos(-11.2f);
+                //leftPlayer.GetComponent<Player_Script>().SetX_Pos(-11.2f);
                 break;
         }
+        clientScript.GameIsStart();
+        ball.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        client.GetComponent<Client>().ExitGame();
     }
     
     private void CheckPlayersStatus()
@@ -173,6 +192,7 @@ public class GameManager_Script : MonoBehaviour
                 leftPlayerBtn.SetActive(true);
                 break;
         }
+        clientScript.LeaderList();
     }
     
     public void Accept_Ready()
@@ -305,6 +325,89 @@ public class GameManager_Script : MonoBehaviour
                 break;
             case 1:
                 rightPlayer.GetComponent<Player_Script>().Move(position, target, speed);
+                break;
+        }
+    }
+
+    public void SetBallPos(float x, float y)
+    {
+        _ballScript.SetPosition(x, y);
+    }
+
+    public void FormLeaderList(string[] arguments)
+    {
+        for (int i = 1; i < arguments.Length; i++)
+        {
+            string[] info = arguments[i].Split("-");
+            _content.AddLeader(info[0], Convert.ToInt32(info[1]));
+        }
+        _content.SpawnLeaders();
+    }
+
+    public void Scored(string[] arguments)
+    {
+        switch (side)
+        {
+            case 0:
+                gameStage.GetComponent<CountScript>().AddRight();
+                rightPlayer.GetComponent<Player_Script>().ResetPos(Convert.ToSingle(arguments[3]));
+                break;
+            case 1:
+                gameStage.GetComponent<CountScript>().AddLeft();
+                leftPlayer.GetComponent<Player_Script>().ResetPos(Convert.ToSingle(arguments[3]));
+                break;
+        }
+        _ballScript.SetPosition(Convert.ToSingle(arguments[1]), Convert.ToSingle(arguments[2]));
+        
+    }
+
+    public void GotScored(string[] arguments)
+    {
+        switch (side)
+        {
+            case 0:
+                gameStage.GetComponent<CountScript>().AddLeft();
+                rightPlayer.GetComponent<Player_Script>().ResetPos(Convert.ToSingle(arguments[3]));
+                break;
+            case 1:
+                gameStage.GetComponent<CountScript>().AddRight();
+                leftPlayer.GetComponent<Player_Script>().ResetPos(Convert.ToSingle(arguments[3]));
+                break;
+        }
+        _ballScript.SetPosition(Convert.ToSingle(arguments[1]), Convert.ToSingle(arguments[2]));
+    }
+
+    public void ChangeBallDirection(string[] arguments)
+    {
+        _ballScript.StartMove(
+            new Vector3(Convert.ToSingle(arguments[1]), Convert.ToSingle(arguments[2])),
+            new Vector3(Convert.ToSingle(arguments[3]), Convert.ToSingle(arguments[4])),
+            Convert.ToSingle(arguments[5]));
+    }
+
+    public void ReceiveEndGameMessage(string status)
+    {
+        endGame.SetActive(true);
+        gameStage.SetActive(false);
+        switch (side)
+        {
+            case 0:
+                rightPlayer.GetComponent<Player_Script>().EndListenForKey();
+                //rightPlayer.GetComponent<Player_Script>().SetX_Pos(11.2f);
+                break;
+            case 1:
+                leftPlayer.GetComponent<Player_Script>().EndListenForKey();
+                //leftPlayer.GetComponent<Player_Script>().SetX_Pos(-11.2f);
+                break;
+        }
+        ball.SetActive(false);
+        switch (status)
+        {
+            case "win":
+                endGame.GetComponent<EndGameScript>().ShowMessage(true);
+                break;
+            case "lost":
+                endGame.GetComponent<EndGameScript>().ShowMessage(false);
                 break;
         }
     }

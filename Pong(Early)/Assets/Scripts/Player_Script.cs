@@ -15,9 +15,9 @@ public class Player_Script : MonoBehaviour
         _x = gameObject.transform.position.x;
     }
 
-    public void SetX_Pos(float pos)
+    public void ResetPos(float pos)
     {
-        //_x = pos;
+        gameObject.transform.position = new Vector3(_x, pos, 0);
     }
 
     public void StartListenForKeys()
@@ -52,7 +52,7 @@ public class Player_Script : MonoBehaviour
                     gameManager.Send_Request_For_Move_Up();
                 }
             }
-            yield return new WaitForSeconds(0.07f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     

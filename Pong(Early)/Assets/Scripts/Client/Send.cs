@@ -125,4 +125,18 @@ public class Send : MonoBehaviour
         socket.Send(requestData);
         //EnqueueCommand(() => { Send_Command_On_Move_Up(); });
     }
+
+    public void SendGameIsStart()
+    {
+        string message = $"isStart;";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+    }
+
+    public void LeaderList()
+    {
+        string message = $"listLeaders;";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+    }
 }
