@@ -15,6 +15,23 @@ public class Send : MonoBehaviour
     {
         socket = _socket;
     }
+
+    public void Registration(string login, string password)
+    {
+        try
+        {
+            lastExecutedCommand.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Queue is empry: {ex}");
+        }
+        
+        String message = $"rgstr_{login}_{password};";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+        EnqueueCommand(() => { GetAuthentification(login, password); });
+    }
     private void EnqueueCommand(Action _action)
     {
         if (_action == null)
@@ -74,13 +91,7 @@ public class Send : MonoBehaviour
         socket.Send(requestData);
         EnqueueCommand(() => { SendReadyness(id, ready); });
     }
-
-    // public void SendError()
-    // {
-    //     string message = "error";
-    //     byte[] requestData = Encoding.UTF8.GetBytes(message);
-    //     socket.Send(requestData);
-    // }
+    
     public void ResendLastCommand()
     {
         lastExecutedCommand.Dequeue().Invoke();

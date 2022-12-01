@@ -384,6 +384,7 @@
 "Assets/Scripts/Client/Recieve.cs"
 "Assets/Scripts/Client/Send.cs"
 "Assets/Scripts/Client/ThreadManager.cs"
+"Assets/Scripts/Encrypter/GFGEncryption.cs"
 "Assets/Scripts/EndGameScripts/EndGameScript.cs"
 "Assets/Scripts/Game Stage Scripts/CountScript.cs"
 "Assets/Scripts/GameManager_Script.cs"

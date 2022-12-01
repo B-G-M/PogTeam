@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class Recieve : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Recieve : MonoBehaviour
     private static Socket socket;
     private static Thread testThread = null;
     private byte[] waitBuffer = null;
-    private bool _isFilled;
+    private bool _isFilled = true;
+    private bool _isListen = true;
 
     private enum Commands
     {
@@ -192,23 +194,31 @@ public class Recieve : MonoBehaviour
     }
     private void ThreadAction() 
     {
-        while (true)
+        while (_isListen)
         {
             byte[] bytes = _isFilled ? CreateNewBuffer() : waitBuffer;
-            int bytesRec = socket.Receive(bytes);
-            String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            if (!res.EndsWith(";"))
+            try
             {
-                waitBuffer = bytes;
-                _isFilled = false;
-                break;
+                int bytesRec = socket.Receive(bytes);
+                String res = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                if (!res.EndsWith(";"))
+                {
+                    waitBuffer = bytes;
+                    _isFilled = false;
+                    break;
+                }
+                _isFilled = true;
+                String[] commands = res.Split(";");
+                for (int i = 0; i < commands.Length - 1; i++)
+                {
+                    String[] param = commands[i].Split("_");
+                    switchFunc(param);
+                }
             }
-            _isFilled = true;
-            String[] commands = res.Split(";");
-            for (int i = 0; i < commands.Length - 1; i++)
+            catch (SocketException ex)
             {
-                String[] param = commands[i].Split("_");
-                switchFunc(param);
+                _isListen = false;
+                _threadManager.ExecuteOnMainThread(()=>ServetDoNotResponse(testThread, socket));
             }
         }
     }
@@ -218,6 +228,14 @@ public class Recieve : MonoBehaviour
     {
         client.GetId(parametrs);
         //testThread.Start();
+    }
+
+    private void ServetDoNotResponse(Thread thread, Socket socket)
+    {
+        thread.Abort();
+        socket.Close();
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
     }
     
     private static void Readyness(string[] parametrs)

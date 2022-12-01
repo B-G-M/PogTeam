@@ -33,6 +33,11 @@ public class Client : MonoBehaviour
     {
         gameManager = gm;
     }
+
+    public void AutoDiscoverServer()
+    {
+        
+    }
     
     public void CreateConn()
     {
@@ -42,12 +47,14 @@ public class Client : MonoBehaviour
             connectButton.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("26.174.189.81", 1457);
+            socket.Connect("192.168.1.8", 1457);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);
             ListenForServer();
             Debug.Log("Connected");
+            
+            
         }
         catch (SocketException ex)
         {
@@ -56,7 +63,6 @@ public class Client : MonoBehaviour
             text.enabled = true;
             loadAnim.SetActive(false);
         }
-        
     }
     public void ExitGame()
     {
@@ -76,6 +82,12 @@ public class Client : MonoBehaviour
     {
         name = login;
         send.GetAuthentification(login, password);
+    }
+
+    public void Registration(string login, string password)
+    {
+        name = login;
+        send.Registration(login, password);
     }
     public void SendReadyness(bool isReady)
     {
