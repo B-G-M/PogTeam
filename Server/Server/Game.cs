@@ -89,9 +89,9 @@ namespace Server.Server
 					Route.BallRoute(ballPos, new Point(platform, player1.stickY)) :
 					Route.BallRoute(ballPos, new Point(platform, player2.stickY));
 
-				player1.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4}",
+				player1.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
 					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
-				player2.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4}",
+				player2.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
 					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
 				
 				if (ballPos.side == player1Side && ballNextPos.side == -1)
