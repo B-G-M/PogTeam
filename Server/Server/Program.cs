@@ -45,6 +45,9 @@ namespace Server.Server
 			db.Users.AddRange(user1, user2);
 			db.SaveChanges();
 			}*/
+			string data = "Check";
+			Console.WriteLine(GFGEncryption.encodeString(data));
+			Console.WriteLine(GFGEncryption.decodeString(GFGEncryption.encodeString(data)));
 
 			Server server = new Server();
 			server.Start();
