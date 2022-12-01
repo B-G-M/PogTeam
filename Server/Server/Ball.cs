@@ -8,7 +8,7 @@ namespace Server.Server
 {
 	class MainClass
 	{
-		public static void Main(string[] args)
+		/*public static void Main(string[] args)
 		{
 			Point point = new Point(2, (float)-4.564);
 			Route route = new Route(point, 30, 0);
@@ -37,8 +37,8 @@ namespace Server.Server
 			//Console.WriteLine(res5.point.y);
 			//Console.WriteLine(res6.point.x);
 			//Console.WriteLine(res6.point.y);
-
-		}
+		}*/
+		
 	}
 
 	public class Point

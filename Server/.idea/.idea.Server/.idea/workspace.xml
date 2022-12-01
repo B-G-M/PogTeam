@@ -13,6 +13,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Pong(Early)/Assets/Scripts/Client/Client.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -73,6 +76,7 @@
       <workItem from="1669375419728" duration="424000" />
       <workItem from="1669376792407" duration="5087000" />
       <workItem from="1669452444465" duration="1660000" />
+      <workItem from="1669932869742" duration="436000" />
     </task>
     <servers />
   </component>

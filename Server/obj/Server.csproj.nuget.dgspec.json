@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PogTeam\\Server\\Server.csproj": {}
+    "B:\\github\\PogTeam\\Server\\Server.csproj": {}
   },
   "projects": {
-    "D:\\PogTeam\\Server\\Server.csproj": {
+    "B:\\github\\PogTeam\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PogTeam\\Server\\Server.csproj",
+        "projectUniqueName": "B:\\github\\PogTeam\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "D:\\PogTeam\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\bgm99\\.nuget\\packages\\",
-        "outputPath": "D:\\PogTeam\\Server\\obj\\",
+        "projectPath": "B:\\github\\PogTeam\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\tatat\\.nuget\\packages\\",
+        "outputPath": "B:\\github\\PogTeam\\Server\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\bgm99\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\tatat\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -77,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

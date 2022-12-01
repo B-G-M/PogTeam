@@ -12,7 +12,6 @@ namespace Server.Server
 	{
 		public Game()
 		{
-			
 			if (rnd.Next(0, 1) == 0)
 			{
 				player1Side = 0;
@@ -60,6 +59,18 @@ namespace Server.Server
 					player2Score += 1;
 			}
 			// Логика завершения игры, быстро !!
+			if (player1Score == 5)
+			{
+				player1.SendMsg("EndGame_win;");
+				player2.SendMsg("EndGame_lost;");
+			}
+			else if(player2Score == 5)
+			{
+				player2.SendMsg("EndGame_win;");
+				player1.SendMsg("EndGame_lost;");
+			}
+			
+			//Докрутить логику голов
 		}
 
 		public int Round()
@@ -68,7 +79,8 @@ namespace Server.Server
 			Route ballPos = new Route(ball, 0, rnd.Next(0, 1));
 			Route ballNextPos;
 			float platform;
-			
+
+			int goalSide = -1;
 			do
 			{
 				platform = (ballPos.side == 0) ? -11.2f : 11.2f;
@@ -81,6 +93,11 @@ namespace Server.Server
 					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
 				player2.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4}",
 					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
+				
+				if (ballPos.side == player1Side && ballNextPos.side == -1)
+					goalSide = 1;
+				else if(ballPos.side == player2Side && ballNextPos.side == -1)
+					goalSide = 0;
 
 				while (!player1.pointAchieved && !player2.pointAchieved) { };
 				player1.pointAchieved = false;
@@ -89,9 +106,7 @@ namespace Server.Server
 
 			} while (ballPos.side == -1);
 
-			//Тарас доделой голы, быстро !
-
-			return 0;
+			return goalSide;
 		}
 
 		public bool GameRdy()
