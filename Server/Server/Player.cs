@@ -14,7 +14,8 @@ namespace Server.Server
 			Random rnd = new Random();
 
 			this.socket = socket;
-			id = rnd.Next(0, 99);//поменять генерацию 
+			id = rnd.Next(0, 99);
+
 			Console.WriteLine("Игрок {0} подключился", id);
 			stickY = 0.0f;
 		}
@@ -25,6 +26,8 @@ namespace Server.Server
 		public string password;
 		public int id;
 		public bool IsReady = false;
+
+		public bool pointAchieved = false;
 
 		public float stickY;
 		private float StepSize = 0.2f;
@@ -85,8 +88,13 @@ namespace Server.Server
 			nickName = login;
 			this.password = password;
 
-			//return AuntificationMethods.Login(login,password);
-			return true;
+			if (AuntificationMethods.Login(login,password))
+			{
+				//id = 
+				return true;
+			}
+			return true;// УБРАТЬ ПОСЛЕ ОТЛАДКИ !!!!!
+			return false;
 		}
 
 		private string CheckSide()
@@ -163,6 +171,7 @@ namespace Server.Server
 					break;
 
 				case "chSide":
+
 					var temp = CheckSide();
 					ansver = "side_" + temp + "_" + _enemy.nickName;
 					break;
@@ -182,15 +191,23 @@ namespace Server.Server
 					break;
 
 				case "moveUp":
+
 					ansver = MoveUpCalculating();
 					_enemy.SendMsg("sMoveUp_" + ansver);
 					ansver = "moveUp_" + ansver;
 					break;
 
 				case "moveDown":
+
 					ansver = MoveDownCalculating();
 					_enemy.SendMsg("sMoveDown_" + ansver);
 					ansver = "moveDown_" + ansver;
+					break;
+
+				case "ballDir":
+
+					if (requestPart[1] == "OK")
+						pointAchieved = true;
 					break;
 
 				default:
