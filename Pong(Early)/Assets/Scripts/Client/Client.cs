@@ -127,6 +127,11 @@ public class Client : MonoBehaviour
     {
         send.LeaderList();
     }
+
+    public void BallHasReachedCollider()
+    {
+        send.BallHasReachedCollider();
+    }
 //---------------------------------------------------------------    
 
 

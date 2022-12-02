@@ -411,4 +411,10 @@ public class GameManager_Script : MonoBehaviour
                 break;
         }
     }
+
+    public void BallHasReachedCollider()
+    {
+        client.GetComponent<Client>().BallHasReachedCollider();
+    }
+    
 }
