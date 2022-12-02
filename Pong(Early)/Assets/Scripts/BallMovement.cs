@@ -20,11 +20,12 @@ public class BallMovement : MonoBehaviour
         _currentPos = currentPos;
         _direction = direction;
         _speed = speed;
+        transform.position = _currentPos;
     }
 
     private void Move()
     {
-        transform.position = Vector3.MoveTowards(_currentPos, _direction, _speed);
+        transform.position = Vector3.MoveTowards(transform.position, _direction, _speed*Time.deltaTime);
     }
 
     private void Update()

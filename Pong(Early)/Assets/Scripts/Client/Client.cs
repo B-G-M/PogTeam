@@ -14,6 +14,7 @@ using UnityEngine.UI;
 
 public class Client : MonoBehaviour
 {
+    [SerializeField] private TMP_Text warningText;
     [SerializeField] private GameObject gameManager;
     private Socket socket;
     public string name;
@@ -22,6 +23,7 @@ public class Client : MonoBehaviour
     [SerializeField] private Send send;
     [SerializeField] private GameObject loadAnim;
     [SerializeField] private GameObject connectButton;
+    [SerializeField] private GameObject registrationBtn;
     [SerializeField] private TMP_Text text;
     
     private void Awake()
@@ -39,12 +41,13 @@ public class Client : MonoBehaviour
         
     }
     
-    public void CreateConn()
+    public void CreateConn(string login, string password, string typeOfEntrance)
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         try
         {
             connectButton.SetActive(false);
+            registrationBtn.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
             socket.Connect("192.168.1.8", 1457);
@@ -53,15 +56,25 @@ public class Client : MonoBehaviour
             send.SetSocket(socket);
             ListenForServer();
             Debug.Log("Connected");
-            
-            
+            switch (typeOfEntrance)
+            {
+                case "auth":
+                    Authirization(login, password);
+                    break;
+                case "rgstr":
+                    Registration(login, password);
+                    break;
+            }
         }
         catch (SocketException ex)
         {
             Debug.Log(ex.StackTrace);
             connectButton.SetActive(true);
+            registrationBtn.SetActive(true);
             text.enabled = true;
             loadAnim.SetActive(false);
+            warningText.enabled = true;
+            warningText.text = "Cannot connect to the server";
         }
     }
     public void ExitGame()
@@ -125,7 +138,7 @@ public class Client : MonoBehaviour
 
     public void LeaderList()
     {
-        send.LeaderList();
+        //send.LeaderList();
     }
 
     public void BallHasReachedCollider()
@@ -193,6 +206,8 @@ public class Client : MonoBehaviour
     }
     public void WrongData()
     {
+        connectButton.SetActive(true);
+        registrationBtn.SetActive(true);
         GameObject.Find("Menu").GetComponent<MainMenu>().WrongAuth();
     }
 

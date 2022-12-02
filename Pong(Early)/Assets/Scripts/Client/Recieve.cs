@@ -37,7 +37,8 @@ public class Recieve : MonoBehaviour
         scored,
         gotScored,
         EndGame,
-        ballDir
+        ballDir,
+        ERROR
     }
 
     private enum Status
@@ -67,6 +68,10 @@ public class Recieve : MonoBehaviour
     {
         switch ((Commands)Enum.Parse(typeof(Commands), arguments[0]))
         {
+            case Commands.ERROR:
+                if(arguments[1] == "AUTH")
+                    _threadManager.ExecuteOnMainThread(WrongAuth);
+                break;
             case Commands.id:
                 if (arguments.Length > 1 && arguments[1] == "ERROR")
                 {
