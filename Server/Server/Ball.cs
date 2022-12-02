@@ -177,7 +177,7 @@ namespace Server.Server
 
 				}
 
-				return new Route(new Point(0, 0), 0, 0); // гол! возвращаемся в центр координат
+				return new Route(new Point(0, 0), 0, -1); // гол! возвращаемся в центр координат
 			}
 
 			if (route.point.x == leftScape) // летим в левую границу 

@@ -33,7 +33,7 @@ namespace Server.Server
 		bool player1Connect = false;
 		bool player2Connect = false;
 
-		float ballSpeed = 20f;
+		float ballSpeed = 3f;
 		Random rnd = new Random();
 
 		public void Start()
@@ -49,7 +49,7 @@ namespace Server.Server
 			recP1.Start();
 			recP2.Start();
 
-			while (player1Score < 5 || player2Score < 5)
+			while (player1Score < 5 && player2Score < 5)
 			{
 				int goal = Round();
 
@@ -83,7 +83,7 @@ namespace Server.Server
 			int goalSide = -1;
 			do
 			{
-				platform = (ballPos.side == 0) ? -11.2f : 11.2f;
+				platform = (ballPos.side == 1) ? -11.2f : 11.2f;
 
 				ballNextPos = (ballPos.side == player1.side) ?
 					Route.BallRoute(ballPos, new Point(platform, player1.stickY)) :
@@ -121,7 +121,7 @@ namespace Server.Server
 				player2.pointAchieved = false;
 				ballPos = ballNextPos;
 
-			} while (ballPos.side == -1);
+			} while (!(ballPos.side == -1));
 
 			return goalSide;
 		}

@@ -11,7 +11,7 @@ namespace Server.Server
 	{
 		class Server
 		{
-			IPEndPoint ipPoint = new IPEndPoint(IPAddress.Any, 1457);
+			IPEndPoint ipPoint = new IPEndPoint(IPAddress.Any, 2009);
 			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			List<Game> games = new List<Game>();
 
