@@ -58,7 +58,7 @@ namespace Server.Server
 				else
 					player2Score += 1;
 			}
-			// Логика завершения игры, быстро !!
+			
 			if (player1Score == 5)
 			{
 				player1.SendMsg("EndGame_win;");
@@ -70,7 +70,7 @@ namespace Server.Server
 				player1.SendMsg("EndGame_lost;");
 			}
 			
-			//Докрутить логику голов
+			
 		}
 
 		public int Round()
