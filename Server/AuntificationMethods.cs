@@ -58,4 +58,33 @@ class AuntificationMethods
 
         return false;
     }
+
+	public static String getById(int Id)
+	{
+		User? user = null;
+		using (ApplicationContext db = new ApplicationContext())
+		{
+			user = db.Users.FirstOrDefault(u => u.Id == Id);
+			return $"{user.Email}-{user.WinGames}";
+		}
+	}
+
+	public static List<int> getTopList()
+	{
+		List<int> topIdList = new List<int>();
+		using ApplicationContext db = new ApplicationContext();
+		var users = db.Users.OrderByDescending(p => p.WinGames);
+
+		foreach (var user in users)
+		{
+			int i = 0;
+			while (i < 5)
+			{
+				topIdList.Add(user.Id);
+				i++;
+			}
+		}
+
+		return topIdList;
+	}
 }

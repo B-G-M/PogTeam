@@ -89,13 +89,28 @@ namespace Server.Server
 			nickName = login;
 			this.password = password;
 
-			//if (AuntificationMethods.Login(login,password))
-			//{
-			//	//id = 
-			//	return true;
-			//}
-			return true;// УБРАТЬ ПОСЛЕ ОТЛАДКИ !!!!!
+			User user = null;
+			if (AuntificationMethods.Login(login, password))
+			{
+				using (ApplicationContext db = new ApplicationContext())
+				{
+					user = db.Users.FirstOrDefault(u => u.Email == login && u.Password == password);
+					int id = user.Id;
+				}
+				return true;
+			}
 			return false;
+		}
+
+		private string GetLeaders()
+		{
+			var leaders = AuntificationMethods.getTopList();
+			string msg = "Leaders";
+			foreach (var id in leaders)
+			{
+				msg += "_" + AuntificationMethods.getById(id);
+			}
+			return msg;
 		}
 
 		private string CheckSide()
@@ -219,6 +234,10 @@ namespace Server.Server
 				case "isStart":
 					isEmpty = true;
 					IsStart = true;
+					break;
+
+				case "listLeaders":
+					ansver = GetLeaders();
 					break;
 
 				default:
