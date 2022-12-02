@@ -66,7 +66,7 @@ public class Client : MonoBehaviour
             registrationBtn.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("26.174.189.81", 2009);
+            socket.Connect("26.122.69.5", 2009);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);

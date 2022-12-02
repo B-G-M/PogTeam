@@ -33,7 +33,7 @@ namespace Server.Server
 		bool player1Connect = false;
 		bool player2Connect = false;
 
-		float ballSpeed = 3f;
+		float ballSpeed = 5f;
 		Random rnd = new Random();
 
 		public void Start()
@@ -53,7 +53,7 @@ namespace Server.Server
 			{
 				int goal = Round();
 
-				if (goal == 0)
+				if (goal == player1Side)
 					player1Score += 1;
 				else
 					player2Score += 1;
@@ -81,6 +81,9 @@ namespace Server.Server
 			float platform;
 
 			int goalSide = -1;
+
+			while (!player2.IsStart || !player1.IsStart) { };
+			player1.stickY = 1f;
 			do
 			{
 				platform = (ballPos.side == 1) ? -11.2f : 11.2f;
@@ -89,34 +92,43 @@ namespace Server.Server
 					Route.BallRoute(ballPos, new Point(platform, player1.stickY)) :
 					Route.BallRoute(ballPos, new Point(platform, player2.stickY));
 
-				while (!player2.IsStart || !player1.IsStart) { };
 				string mes = "ballDir_" + ballPos.point.x + "_" + ballPos.point.y + "_" + ballNextPos.point.x +
 					"_" + ballNextPos.point.y + "_" + ballSpeed + ";";
 
                 player1.SendMsg(mes);
 				player2.SendMsg(mes);
 
+
 				if (ballPos.side == player1Side && ballNextPos.side == -1)
 				{
 					goalSide = 0;
 					player1.stickY = 0.0f;
 					player2.stickY = 0.0f;
-					player2.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
-						+ "_" + player2.stickX + "_" + player2.stickY + ";");
-                    player1.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+
+					player1.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
 						+ "_" + player1.stickX + "_" + player1.stickY + ";");
-                }
+					player2.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+						+ "_" + player2.stickX + "_" + player2.stickY + ";");
+					return goalSide;
+				}
 
 				else if (ballPos.side == player2Side && ballNextPos.side == -1)
 				{
                     goalSide = 1;
-                    player1.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+					player1.stickY = 0.0f;
+					player2.stickY = 0.0f;
+
+					player2.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+					+ "_" + player2.stickX + "_" + player2.stickY + ";");
+					player1.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
 						+ "_" + player1.stickX + "_" + player1.stickY + ";");
-                    player2.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
-                        + "_" + player2.stickX + "_" + player2.stickY + ";");
+					return goalSide;
                 }
 
-				while (!player1.pointAchieved && !player2.pointAchieved) { };
+				while (!player1.pointAchieved && !player2.pointAchieved)
+				{
+				};
+
 				player1.pointAchieved = false;
 				player2.pointAchieved = false;
 				ballPos = ballNextPos;

@@ -11,7 +11,7 @@ namespace Client
             bool OK;
             try
             {
-                socket.Connect("192.168.1.67", 1457);
+                socket.Connect("26.174.189.81", 1457);
                 OK = true;
             }
             catch (SocketException)
@@ -53,6 +53,17 @@ namespace Client
 				msg = "isStart;";
 				array = Encoding.UTF8.GetBytes(msg);
 				socket.Send(array);
+
+				ans = new byte[1024];
+				socket.Receive(ans);
+				msg = Encoding.UTF8.GetString(ans);
+				Console.WriteLine(msg);
+
+				msg = "ballDir_OK;";
+				array = Encoding.UTF8.GetBytes(msg);
+				socket.Send(array);
+
+				Thread.Sleep(3000);
 
 				ans = new byte[1024];
 				socket.Receive(ans);

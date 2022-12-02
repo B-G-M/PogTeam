@@ -49,12 +49,11 @@ namespace Server.Server
 
 		public void ReciveMsg()
 		{
-			bool haveRest = false;
 			bool stop = true;
 			string rest = "";
 			while (true)
 			{
-				byte[] msgArr = new byte[1024];
+				byte[] msgArr = new byte[2048];
 				socket.Receive(msgArr);
 
 				string msg = Encoding.UTF8.GetString(msgArr);

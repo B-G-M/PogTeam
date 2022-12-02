@@ -52,7 +52,7 @@ public class Player_Script : MonoBehaviour
                     gameManager.Send_Request_For_Move_Up();
                 }
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.02f);
         }
     }
     
