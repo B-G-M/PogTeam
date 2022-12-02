@@ -150,4 +150,11 @@ public class Send : MonoBehaviour
         byte[] requestData = Encoding.UTF8.GetBytes(message);
         socket.Send(requestData);
     }
+
+    public void BallHasReachedCollider()
+    {
+        string message = $"ballDir_OK;";
+        byte[] requestData = Encoding.UTF8.GetBytes(message);
+        socket.Send(requestData);
+    }
 }
