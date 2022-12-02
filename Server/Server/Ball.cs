@@ -68,12 +68,12 @@ namespace Server.Server
 
 		public static Route BallRoute(Route route, Point platformCenter)
 		{
-			const float rightScape = (float)11.2;
+			const float rightScape = 11.2f;
 			const float leftScape = (float)-11.2;
 			const float topScape = (float)4.62;
 			const float downScape = (float)-4.564;
 			const float height = topScape - downScape;
-			const float platformRadius = 1;
+			const float platformRadius = 2.0f;
 			const float platformWidth = (float)0.4;
 			const int rightAngle = 90;
 

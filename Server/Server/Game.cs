@@ -91,14 +91,14 @@ namespace Server.Server
 
 				while (!player2.IsStart || !player1.IsStart) { };
 				string mes = "ballDir_" + ballPos.point.x + "_" + ballPos.point.y + "_" + ballNextPos.point.x +
-					"_" + ballPos.point.y + "_" + ballSpeed + ";";
+					"_" + ballNextPos.point.y + "_" + ballSpeed + ";";
 
                 player1.SendMsg(mes);
 				player2.SendMsg(mes);
 
 				if (ballPos.side == player1Side && ballNextPos.side == -1)
 				{
-					goalSide = 1;
+					goalSide = 0;
 					player1.stickY = 0.0f;
 					player2.stickY = 0.0f;
 					player2.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
@@ -109,7 +109,7 @@ namespace Server.Server
 
 				else if (ballPos.side == player2Side && ballNextPos.side == -1)
 				{
-                    goalSide = 0;
+                    goalSide = 1;
                     player1.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
 						+ "_" + player1.stickX + "_" + player1.stickY + ";");
                     player2.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y

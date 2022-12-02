@@ -90,7 +90,7 @@ namespace Server.Server
 			this.password = password;
 
 			User user = null;
-			if (AuntificationMethods.Login(login, password))
+			/*if (AuntificationMethods.Login(login, password))
 			{
 				using (ApplicationContext db = new ApplicationContext())
 				{
@@ -99,7 +99,8 @@ namespace Server.Server
 				}
 				return true;
 			}
-			return false;
+			return false;*/
+			return true;
 		}
 
 		private string GetLeaders()
@@ -115,7 +116,7 @@ namespace Server.Server
 
 		private string CheckSide()
 		{
-			stickX = side == 0 ? -11.2f : 11.2f;
+			stickX = side == 1 ? -11.2f : 11.2f;
 			return side.ToString();
 		}
 
