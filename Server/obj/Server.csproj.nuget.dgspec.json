@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "B:\\github\\PogTeam\\Server\\Server.csproj": {}
+    "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/Server.csproj": {}
   },
   "projects": {
-    "B:\\github\\PogTeam\\Server\\Server.csproj": {
+    "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "B:\\github\\PogTeam\\Server\\Server.csproj",
+        "projectUniqueName": "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/Server.csproj",
         "projectName": "Server",
-        "projectPath": "B:\\github\\PogTeam\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\tatat\\.nuget\\packages\\",
-        "outputPath": "B:\\github\\PogTeam\\Server\\obj\\",
+        "projectPath": "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/Server.csproj",
+        "packagesPath": "/Users/tarasandriyevskiy/.nuget/packages/",
+        "outputPath": "/Users/tarasandriyevskiy/Documents/GitHub/PogTeam/Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tatat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/tarasandriyevskiy/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

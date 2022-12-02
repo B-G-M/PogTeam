@@ -89,6 +89,8 @@ namespace Server.Server
 					Route.BallRoute(ballPos, new Point(platform, player1.stickY)) :
 					Route.BallRoute(ballPos, new Point(platform, player2.stickY));
 
+				while (!player2.IsReady || !player1.IsReady) { };
+
 				player1.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
 					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
 				player2.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
