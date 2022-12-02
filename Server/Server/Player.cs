@@ -144,6 +144,7 @@ namespace Server.Server
 		}
 		private bool CommandProcessing(string request)
 		{
+			bool isEmpty = false;
 			string[] requestPart = request.Split("_");
 			string ansver = "";
 			bool flag = true;
@@ -213,6 +214,7 @@ namespace Server.Server
 					break;
 
 				case "isStart":
+					isEmpty = true;
 					IsStart = true;
 					break;
 
@@ -227,7 +229,8 @@ namespace Server.Server
 					socket.Close();
 					break;
 			}
-			SendMsg(ansver + ";");
+			if(!isEmpty)
+				SendMsg(ansver + ";");
 			return flag;
 		}
 	}

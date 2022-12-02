@@ -2,10 +2,10 @@
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="Server/Game.cs">
     <Files>
-      <File FileName="Server/Game.cs" Line="105" Column="45" />
-      <File FileName="Server/Player.cs" Line="103" Column="40" />
-      <File FileName="Server/Program.cs" Line="1" Column="1" />
-      <File FileName="Server/Ball.cs" Line="1" Column="1" />
+      <File FileName="Server/Game.cs" Line="92" Column="48" />
+      <File FileName="Server/Player.cs" Line="217" Column="12" />
+      <File FileName="Server/Program.cs" Line="23" Column="1" />
+      <File FileName="Server/Ball.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
