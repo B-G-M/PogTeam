@@ -196,14 +196,14 @@ namespace Server.Server
 				case "moveUp":
 
 					ansver = MoveUpCalculating();
-					_enemy.SendMsg("sMoveUp_" + ansver);
+					_enemy.SendMsg("sMoveUp_" + ansver + ";");
 					ansver = "moveUp_" + ansver;
 					break;
 
 				case "moveDown":
 
 					ansver = MoveDownCalculating();
-					_enemy.SendMsg("sMoveDown_" + ansver);
+					_enemy.SendMsg("sMoveDown_" + ansver + ";");
 					ansver = "moveDown_" + ansver;
 					break;
 
