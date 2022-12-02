@@ -26,7 +26,7 @@ namespace Server.Server
 		public string password;
 		public int id;
 		public bool IsReady = false;
-
+		public bool IsStart = false;
 		public bool pointAchieved = false;
 
 		public float stickX;
@@ -211,6 +211,11 @@ namespace Server.Server
 					if (requestPart[1] == "OK")
 						pointAchieved = true;
 					break;
+
+				case "isStart":
+					IsStart = true;
+					break;
+
 
 				default:
 
