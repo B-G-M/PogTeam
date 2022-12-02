@@ -33,10 +33,10 @@ public class MainMenu : MonoBehaviour
             return;
         }
         loadAnim.SetActive(true);
-        connectButton.enabled = false;
-        client.GetComponent<Client>().CreateConn();
+        //connectButton.enabled = false;
+        client.GetComponent<Client>().CreateConn(login.text, GFGEncryption.encodeString(password.text), "auth");
         //client.GetComponent<Client>().AutoDiscoverServer();
-        client.GetComponent<Client>().Authirization(login.text, password.text);
+        //client.GetComponent<Client>().Authirization(login.text, password.text);
         warningText.enabled = false;
     }
 
@@ -48,9 +48,9 @@ public class MainMenu : MonoBehaviour
             warningText.text = "login or password are not valid";
             return;
         }
-        loadAnim.SetActive(true);
-        client.GetComponent<Client>().CreateConn();
-        client.GetComponent<Client>().Registration(login.text, GFGEncryption.encodeString(password.text));
+        //loadAnim.SetActive(true);
+        client.GetComponent<Client>().CreateConn(login.text, GFGEncryption.encodeString(password.text), "rgstr");
+        //client.GetComponent<Client>().Registration(login.text, GFGEncryption.encodeString(password.text));
         warningText.enabled = false;
     }
 
@@ -62,8 +62,8 @@ public class MainMenu : MonoBehaviour
     public void WrongAuth()
     {
         loadAnim.SetActive(false);
-        connectButton.enabled = true;
+        //connectButton.enabled = true;
         warningText.enabled = false;
-        
+        warningText.text = "Wrong login or password";
     }
 }
