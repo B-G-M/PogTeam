@@ -33,10 +33,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
         loadAnim.SetActive(true);
-        //connectButton.enabled = false;
         client.GetComponent<Client>().CreateConn(login.text, GFGEncryption.encodeString(password.text), "auth");
-        //client.GetComponent<Client>().AutoDiscoverServer();
-        //client.GetComponent<Client>().Authirization(login.text, password.text);
         warningText.enabled = false;
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -19,6 +20,7 @@ public class Client : MonoBehaviour
     private Socket socket;
     public string name;
     public int id;
+    private string _ip;
     [SerializeField] private Recieve recieve;
     [SerializeField] private Send send;
     [SerializeField] private GameObject loadAnim;
@@ -38,7 +40,21 @@ public class Client : MonoBehaviour
 
     public void AutoDiscoverServer()
     {
-        
+        bool received = false;
+        int PORT = 2010;
+        UdpClient udpClient = new UdpClient();
+        udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, PORT));
+        udpClient.EnableBroadcast = true;
+        var from = new IPEndPoint(0, 0);
+        string myMess = "";
+        while (!received)
+        {
+            var recvBuffer = udpClient.Receive(ref from);
+            string mess = Encoding.UTF8.GetString(recvBuffer);
+            if (mess == "LetsPlayPong") received = true;
+        }
+
+        _ip = from.ToString();
     }
     
     public void CreateConn(string login, string password, string typeOfEntrance)
@@ -50,7 +66,7 @@ public class Client : MonoBehaviour
             registrationBtn.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("192.168.1.8", 1457);
+            socket.Connect("26.174.189.81", 2009);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);

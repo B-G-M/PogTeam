@@ -20,7 +20,7 @@ public class BallMovement : MonoBehaviour
         _currentPos = currentPos;
         _direction = direction;
         _speed = speed;
-        transform.position = _currentPos;
+        //transform.position = _currentPos;
     }
 
     private void Move()
@@ -38,6 +38,8 @@ public class BallMovement : MonoBehaviour
         if (col.gameObject.CompareTag("Barrier"))
         {
             _gameManagerScript.BallHasReachedCollider();
+            //Debug.Log($"Ball has reaches collider. Ball pos {transform.position.x}:{transform.position.y}");
+            //Debug.Log("Send ballDir");
         }
     }
 }

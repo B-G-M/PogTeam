@@ -18,6 +18,7 @@ public class BallScript : MonoBehaviour
 
     public void StartMove(Vector3 currentPos, Vector3 direction, float speed)
     {
+        //Debug.Log($"Dir: ");
         ballMovement.SetInfo(currentPos, direction, speed);
         ballMovement.enabled = true;
     }
