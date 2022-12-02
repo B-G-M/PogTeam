@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
         connectButton.enabled = false;
         client.GetComponent<Client>().CreateConn();
         //client.GetComponent<Client>().AutoDiscoverServer();
-        client.GetComponent<Client>().Authirization(login.text, GFGEncryption.encodeString(password.text));
+        client.GetComponent<Client>().Authirization(login.text, password.text);
         warningText.enabled = false;
     }
 
