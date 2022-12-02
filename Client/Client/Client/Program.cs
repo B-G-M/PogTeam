@@ -41,7 +41,7 @@ namespace Client
 				msg = Encoding.UTF8.GetString(ans);
 				Console.WriteLine(msg);
 
-				msg = "rdy_true;";
+				msg = "rdy_True;";
 				array = Encoding.UTF8.GetBytes(msg);
 				socket.Send(array);
 
@@ -49,6 +49,19 @@ namespace Client
 				socket.Receive(ans);
 				msg = Encoding.UTF8.GetString(ans);
 				Console.WriteLine(msg);
+
+				msg = "isStart;";
+				array = Encoding.UTF8.GetBytes(msg);
+				socket.Send(array);
+
+				ans = new byte[1024];
+				socket.Receive(ans);
+				msg = Encoding.UTF8.GetString(ans);
+				Console.WriteLine(msg);
+
+				msg = "ballDir_OK;";
+				array = Encoding.UTF8.GetBytes(msg);
+				socket.Send(array);
 
 				while (msg != "stop")
                 {

@@ -89,11 +89,11 @@ namespace Server.Server
 			nickName = login;
 			this.password = password;
 
-			if (AuntificationMethods.Login(login,password))
-			{
-				//id = 
-				return true;
-			}
+			//if (AuntificationMethods.Login(login,password))
+			//{
+			//	//id = 
+			//	return true;
+			//}
 			return true;// УБРАТЬ ПОСЛЕ ОТЛАДКИ !!!!!
 			return false;
 		}
@@ -127,6 +127,7 @@ namespace Server.Server
 
 			return comand;
 		}
+
 		private string MoveDownCalculating()
 		{
 			string comand = "";
@@ -142,6 +143,7 @@ namespace Server.Server
 
 			return comand;
 		}
+
 		private bool CommandProcessing(string request)
 		{
 			bool isEmpty = false;
@@ -156,7 +158,7 @@ namespace Server.Server
 				socket.Shutdown(0);
 				socket.Close();
 			}
-			if (requestPart.Length > 1 && requestPart[1] == "OK")
+			if (requestPart.Length > 1 && requestPart[1] == "OK" && requestPart[0] != "ballDir")
 				return true;
 
 			switch (requestPart[0])
@@ -169,7 +171,7 @@ namespace Server.Server
 						ansver = $"id_{id}";
 
 					}
-					else SendMsg("ERROR_AUTH;");
+					else { ansver = "ERROR_AUTH;"; };
 					flag = false;
 					break;
 
@@ -211,13 +213,13 @@ namespace Server.Server
 
 					if (requestPart[1] == "OK")
 						pointAchieved = true;
+					isEmpty = true;
 					break;
 
 				case "isStart":
 					isEmpty = true;
 					IsStart = true;
 					break;
-
 
 				default:
 
