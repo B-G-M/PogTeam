@@ -90,16 +90,28 @@ namespace Server.Server
 					Route.BallRoute(ballPos, new Point(platform, player2.stickY));
 
 				while (!player2.IsReady || !player1.IsReady) { };
+				string mes = "ballDir_" + ballPos.point.x + "_" + ballPos.point.y + "_" + ballNextPos.point.x + "_" + ballPos.point.x + ";";
 
-				player1.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
-					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
-				player2.SendMsg(("ballDir_{0}_{1}_{2}_{3}_{4};",
-					ballPos.point.x, ballPos.point.y, ballNextPos.point.x, ballNextPos.point.y, ballSpeed).ToString());
-				
+                player1.SendMsg(mes);
+				player2.SendMsg(mes);
+
 				if (ballPos.side == player1Side && ballNextPos.side == -1)
+				{
 					goalSide = 1;
-				else if(ballPos.side == player2Side && ballNextPos.side == -1)
-					goalSide = 0;
+					player1.stickY = 0.0f;
+					player2.stickY = 0.0f;
+					player2.SendMsg("scored_"+ballNextPos.point.x+"_"+ballNextPos.point.y+"_"+player2.stickX+"_"+player2.stickY+";");
+                    player1.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+						+ "_" + player1.stickX + "_" + player1.stickY + ";");
+                }
+
+				else if (ballPos.side == player2Side && ballNextPos.side == -1)
+				{
+                    goalSide = 0;
+                    player1.SendMsg("scored_" + ballNextPos.point.x + "_" + ballNextPos.point.y + "_" + player1.stickX + "_" + player1.stickY + ";");
+                    player2.SendMsg("gotScored_" + ballNextPos.point.x + "_" + ballNextPos.point.y
+                        + "_" + player2.stickX + "_" + player2.stickY + ";");
+                }
 
 				while (!player1.pointAchieved && !player2.pointAchieved) { };
 				player1.pointAchieved = false;

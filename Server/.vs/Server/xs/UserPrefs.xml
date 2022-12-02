@@ -1,26 +1,28 @@
 ﻿<Properties StartupConfiguration="{3F186347-D58D-4A65-A510-56D879472B72}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Server/Game.cs">
     <Files>
-      <File FileName="Program.cs" Line="193" Column="13" />
+      <File FileName="Server/Game.cs" Line="105" Column="45" />
+      <File FileName="Server/Player.cs" Line="103" Column="40" />
+      <File FileName="Server/Program.cs" Line="1" Column="1" />
+      <File FileName="Server/Ball.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Server" expanded="True">
-            <Node name="Server" expanded="True" />
+            <Node name="Server" expanded="True">
+              <Node name="Server" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

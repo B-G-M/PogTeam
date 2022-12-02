@@ -29,6 +29,7 @@ namespace Server.Server
 
 		public bool pointAchieved = false;
 
+		public float stickX;
 		public float stickY;
 		private float StepSize = 0.2f;
 		public int side;
@@ -99,6 +100,7 @@ namespace Server.Server
 
 		private string CheckSide()
 		{
+			stickX = side == 0 ? -11.2f : 11.2f;
 			return side.ToString();
 		}
 
