@@ -36,6 +36,7 @@ namespace Server.Server
 		private float speed = 20.0f;
 		private float UpperRange = 4.0f;
 		private float LowerRange = -3.9f;
+		public bool gameEnd = false;
 
 		public Socket socket;
 
@@ -44,6 +45,7 @@ namespace Server.Server
 			byte[] ansArr = Encoding.UTF8.GetBytes(msg);
 			socket.Send(ansArr);
 			Console.WriteLine("Отправлено игроку {0}: {1}", id, msg);
+			if (msg == "EndGame_win;" && msg == "EndGame_lost;") { gameEnd = true; };
 			return true;//прикрути проверку на отправку
 		}
 
@@ -51,9 +53,20 @@ namespace Server.Server
 		{
 			bool stop = true;
 			string rest = "";
-			while (true)
+			
+			while (!gameEnd)
 			{
 				byte[] msgArr = new byte[2048];
+				DateTime waitTime = DateTime.Now;
+
+				while (socket.Available == 0)
+				{
+					if ((waitTime - System.DateTime.Now).Seconds < -20)
+						gameEnd = true;
+
+					if (gameEnd)
+						return;
+				};
 				socket.Receive(msgArr);
 
 				string msg = Encoding.UTF8.GetString(msgArr);
@@ -62,6 +75,13 @@ namespace Server.Server
 
 				Console.WriteLine("Получено от игрока {0}: {1}", id, msg);
 				msg = msg.Replace("\0", string.Empty);
+
+				if (msg == "")
+				{
+					Shutdown();
+					return;
+				}
+					
 
 				var msgSplit = msg.Split(";");
 				if (msg[msg.Length - 1] != ';')
@@ -73,7 +93,7 @@ namespace Server.Server
 				foreach (var req in msgSplit)
 				{
 					if (req == "")
-						break;	
+						break;
 
 					stop = CommandProcessing(req);
 					if (!stop)
@@ -89,7 +109,7 @@ namespace Server.Server
 			this.password = password;
 
 			User user = null;
-			/*if (AuntificationMethods.Login(login, password))
+			if (AuntificationMethods.Login(login, password))
 			{
 				using (ApplicationContext db = new ApplicationContext())
 				{
@@ -98,8 +118,19 @@ namespace Server.Server
 				}
 				return true;
 			}
-			return false;*/
-			return true;
+			return false;
+			//return true;
+		}
+		public void Shutdown()
+		{
+			socket.Shutdown(0);
+			socket.Close();
+
+			if(_enemy != null)
+			{
+				_enemy.socket.Shutdown(0);
+				_enemy.socket.Close();
+			}
 		}
 
 		private string GetLeaders()
@@ -167,12 +198,8 @@ namespace Server.Server
 			bool flag = true;
 
 			if (requestPart.Length > 1 && requestPart[1] == "ERROR")
-			{
-				_enemy.socket.Shutdown(0);
-				_enemy.socket.Close();
-				socket.Shutdown(0);
-				socket.Close();
-			}
+				Shutdown();
+
 			if (requestPart.Length > 1 && requestPart[1] == "OK" && requestPart[0] != "ballDir")
 				return true;
 
