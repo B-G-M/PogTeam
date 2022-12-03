@@ -27,10 +27,15 @@ public class Client : MonoBehaviour
     [SerializeField] private GameObject connectButton;
     [SerializeField] private GameObject registrationBtn;
     [SerializeField] private TMP_Text text;
+    [SerializeField] private GameObject findingServer;
+    private Thread findServer = null;
     
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        findingServer.SetActive(true);
+        findServer = new Thread(new ThreadStart(AutoDiscoverServer));
+        findServer.Start();
     }
 
     public void SetGameManager(GameObject gm)
@@ -55,6 +60,8 @@ public class Client : MonoBehaviour
         }
 
         _ip = from.ToString();
+        findServer.Abort();
+        findingServer.SetActive(false);
     }
     
     public void CreateConn(string login, string password, string typeOfEntrance)
@@ -66,7 +73,7 @@ public class Client : MonoBehaviour
             registrationBtn.SetActive(false);
             text.enabled = false;
             loadAnim.SetActive(true);
-            socket.Connect("26.122.69.5", 2009);
+            socket.Connect("192.168.1.8", 2009);
             recieve.enabled = true;
             recieve.SetSocket(socket);
             send.SetSocket(socket);
