@@ -40,23 +40,28 @@ namespace Server.Server
 		{
 			while (!GameRdy()){}
 
-
 			string? msg = "";
 			player1.Enemy = player2;
 			player2.Enemy = player1;
+
 			Thread recP1 = new Thread(player1.ReciveMsg);
 			Thread recP2 = new Thread(player2.ReciveMsg);
 			recP1.Start();
 			recP2.Start();
+			
 
 			while (player1Score < 5 && player2Score < 5)
 			{
 				int goal = Round();
 
+				if (goal <= -1)
+					break;
+
 				if (goal == player1Side)
 					player1Score += 1;
 				else
 					player2Score += 1;
+
 			}
 			
 			if (player1Score == 5)
@@ -69,8 +74,14 @@ namespace Server.Server
 				player2.SendMsg("EndGame_win;");
 				player1.SendMsg("EndGame_lost;");
 			}
-			
-			
+			Console.WriteLine("Конец игры.");
+			while (recP1.IsAlive || recP2.IsAlive) { };
+
+			player1.socket.Shutdown(0);
+			player2.socket.Shutdown(0);
+			player1.socket.Close();
+			player2.socket.Close();
+			Console.WriteLine("Игрок {0} и {1} отключены.", player1.id, player2.id);
 		}
 
 		public int Round()
@@ -81,11 +92,18 @@ namespace Server.Server
 			float platform;
 
 			int goalSide = -1;
+			ballSpeed = 5f;
+			while (!player2.IsStart || !player1.IsStart) 
+			{
+				if (player1.gameEnd || player2.gameEnd)
+					return -1;
+			};
 
-			while (!player2.IsStart || !player1.IsStart) { };
-			player1.stickY = 1f;
 			do
 			{
+				if (player1.gameEnd || player2.gameEnd)
+					return -1;
+
 				platform = (ballPos.side == 1) ? -11.2f : 11.2f;
 
 				ballNextPos = (ballPos.side == player1.side) ?
@@ -97,7 +115,7 @@ namespace Server.Server
 
                 player1.SendMsg(mes);
 				player2.SendMsg(mes);
-
+				ballSpeed *= 1.04f;
 
 				if (ballPos.side == player1Side && ballNextPos.side == -1)
 				{
@@ -126,11 +144,10 @@ namespace Server.Server
                 }
 
 				while (!player1.pointAchieved && !player2.pointAchieved)
-				{
-				};
-
+				{ };
 				player1.pointAchieved = false;
 				player2.pointAchieved = false;
+
 				ballPos = ballNextPos;
 
 			} while (!(ballPos.side == -1));
